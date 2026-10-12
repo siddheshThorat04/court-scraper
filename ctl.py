@@ -41,13 +41,13 @@ def cmd_status(r, _):
     for key in sorted(r.scan_iter(tq.K("hb:*"))):
         hb = json.loads(r.get(key) or "{}")
         print(f"  {key.split('hb:')[-1]:<8} last seen {int(time.time() - hb.get('ts', 0))}s ago, page loads on this browser: {hb.get('loads')}")
-    if config.DATABASE_URL:
+    if config.SHEETS_URL:
         try:
             s = DB().stats(config.COURT_CODE)
-            print(f"DB: {s['cases']:,} cases | {s['names_counted']:,} names counted | site-reported total "
+            print(f"Sheet: {s['cases']:,} case rows | {s['names_counted']:,} names counted | site-reported total "
                   f"{s['expected_records']:,} | failed tasks {s['failed_tasks']} | size {s['db_size']}")
         except Exception as e:  # noqa: BLE001
-            print(f"DB: unreachable ({e})")
+            print(f"Sheet: unreachable ({e})")
 
 
 def cmd_pause(r, a):
@@ -102,6 +102,7 @@ def cmd_reconcile(r, a):
     for name, page, total in missing:
         court = config.COURT_CODE
         r.hdel(tq.ATTEMPTS, f"page|{court}|{name}|{page}", f"name|{court}|{name}|1")
+        r.srem(tq.K("done"), f"page|{court}|{name}|{page}", f"name|{court}|{name}")
         if page == 1:
             r.srem(tq.SEEN_NAME, f"{court}|{name}")
             n += tq.enqueue_names(r, court, [name])

@@ -3,7 +3,7 @@
 ## Setup (once)
 1. Install **Google Chrome** if you don't have it.
 2. Unzip the `court_worker` folder anywhere (for example `C:\court_worker`).
-3. Copy `.env.example` to `.env` (same folder) and paste in the two values you were given: `REDIS_URL` and `DATABASE_URL`. Change nothing else.
+3. Copy `.env.example` to `.env` (same folder) and paste in the values you were given: `REDIS_URL`, `SHEETS_URL` and `SHEETS_SECRET`. Change nothing else.
 
 ## Running
 1. Double-click **court_worker.exe**. A black window and a Chrome window open. Leave both open.

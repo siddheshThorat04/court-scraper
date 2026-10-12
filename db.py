@@ -1,168 +1,143 @@
-"""MySQL / MariaDB access (PyMySQL). One transaction per flush; every insert is idempotent."""
+"""Google Sheets storage through the Apps Script web app (apps_script/Code.gs).
+
+Same interface the worker always used (write / record_failed / done_names / missing_pages / stats), but the
+data goes over HTTPS (port 443), so a VPN or firewall does not get in the way.
+
+Sheets has no unique keys, so duplicates are prevented in two layers:
+  1. Redis set "done": a page (or name summary) already stored by any worker is skipped.
+  2. A deterministic batch id: if a request succeeded but its reply was lost, the retry is ignored by the script.
+A crash in the tiny window between "sheet written" and "marked done" can still repeat a page - dedupe on
+(court_code, case_id, party_name, party_type) when you export.
+"""
+import hashlib
 import json
 import logging
-import ssl as _ssl
-from urllib.parse import parse_qs, unquote, urlparse
 
-import pymysql
+import requests
 
 import config
+import taskqueue as tq
 
 log = logging.getLogger("db")
 
-# Inserting a duplicate case key is a harmless no-op (and, unlike INSERT IGNORE, other errors still surface).
-SQL_CASE = """
-INSERT INTO cases (court_code, case_id, party_name, party_type, case_title, filed_date,
-                   case_status, balance, court, year_of_birth, search_last_name, page_number)
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-ON DUPLICATE KEY UPDATE case_id = case_id
-"""
-
-SQL_PAGE = """
-INSERT INTO scraped_pages (court_code, last_name, page, case_count) VALUES (%s,%s,%s,%s)
-ON DUPLICATE KEY UPDATE case_count = VALUES(case_count), scraped_at = CURRENT_TIMESTAMP
-"""
-
-SQL_SUMMARY = """
-INSERT INTO name_summary (court_code, last_name, total_records, total_pages, status)
-VALUES (%s,%s,%s,%s,%s)
-ON DUPLICATE KEY UPDATE total_records = VALUES(total_records), total_pages = VALUES(total_pages),
-                        status = VALUES(status), counted_at = CURRENT_TIMESTAMP
-"""
-
-# column widths in schema.sql: (index in the case tuple, max chars). Clipped so one odd value can never
-# make a whole batch fail forever.
-_CLIP = {1: 64, 2: 255, 3: 64, 5: 64, 6: 128, 7: 64, 8: 255, 9: 16, 10: 100}
-
-
-def parse_url(url):
-    """mysql://user:password@host:3306/dbname?ssl=true   (percent-encode special characters in the password)"""
-    u = urlparse(url)
-    if u.scheme not in ("mysql", "mysql+pymysql", "mariadb"):
-        raise SystemExit("DATABASE_URL must look like mysql://USER:PASSWORD@HOST:3306/DATABASE")
-    q = {k: v[0] for k, v in parse_qs(u.query).items()}
-    kw = dict(host=u.hostname, port=u.port or 3306, user=unquote(u.username or ""),
-              password=unquote(u.password or ""), database=u.path.lstrip("/"))
-    mode = q.get("ssl", "").lower()
-    if mode in ("1", "true", "yes"):
-        kw["ssl"] = _ssl.create_default_context()
-    elif mode == "insecure":                      # encrypted but certificate not verified (self-signed hosts)
-        ctx = _ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = _ssl.CERT_NONE
-        kw["ssl"] = ctx
-    return kw
-
-
-def _clip_case(row):
-    row = list(row)
-    for i, n in _CLIP.items():
-        if isinstance(row[i], str) and len(row[i]) > n:
-            row[i] = row[i][:n]
-    return tuple(row)
+CELL_LIMIT = 10_000_000
 
 
 class DB:
-    def __init__(self, url=None):
-        self.url = url or config.DATABASE_URL
-        self.conn = None
+    def __init__(self, url=None, secret=None):
+        self.url = url or config.SHEETS_URL
+        self.secret = secret or config.SHEETS_SECRET
+        self._r = None
 
-    def _connect(self):
-        self.conn = pymysql.connect(charset="utf8mb4", autocommit=False, connect_timeout=20,
-                                    read_timeout=60, write_timeout=60, **parse_url(self.url))
+    # ---------- plumbing ----------
+    def _redis(self):
+        if self._r is None:
+            self._r = tq.client()
+        return self._r
+
+    def _call(self, action, **payload):
+        body = json.dumps({"secret": self.secret, "action": action, **payload})
+        # The web app answers a POST with a redirect to the result page; requests follows it.
+        resp = requests.post(self.url, data=body.encode("utf-8"), timeout=90,
+                             headers={"Content-Type": "text/plain; charset=utf-8"})
+        try:
+            data = resp.json()
+        except ValueError:
+            raise RuntimeError("Sheets web app did not return JSON (is it deployed with access 'Anyone'?): "
+                               + resp.text[:120].replace("\n", " "))
+        if not data.get("ok"):
+            raise RuntimeError(f"Sheets web app error: {data.get('error')}")
+        return data
 
     def ensure(self):
-        if self.conn is None:
-            self._connect()
-        else:
-            try:
-                self.conn.ping(reconnect=True)     # shared hosts drop idle connections quickly
-            except Exception:
-                self.reset()
-                self._connect()
-        return self.conn
+        self._call("ping")
+        return self
 
     def reset(self):
-        try:
-            if self.conn is not None:
-                self.conn.close()
-        except Exception:
-            pass
-        self.conn = None
+        pass                      # stateless over HTTPS - nothing to reconnect
+
+    # ---------- writes ----------
+    @staticmethod
+    def _page_key(court, name, page):
+        return f"page|{court}|{name}|{page}"
+
+    @staticmethod
+    def _name_key(court, name):
+        return f"name|{court}|{name}"
 
     def write(self, cases, pages, summaries):
-        """Insert a whole batch atomically. Returns the number of NEW case rows saved."""
-        conn = self.ensure()
-        inserted = 0
-        try:
-            with conn.cursor() as cur:
-                if summaries:
-                    cur.executemany(SQL_SUMMARY, summaries)
-                if cases:
-                    cur.executemany(SQL_CASE, [_clip_case(c) for c in cases])
-                    inserted = cur.rowcount if cur.rowcount and cur.rowcount > 0 else 0
-                if pages:
-                    cur.executemany(SQL_PAGE, pages)
-            conn.commit()
-        except Exception:
-            try:
-                conn.rollback()
-            except Exception:
-                pass
-            raise
-        return inserted
+        """Append a batch. Returns the number of case rows sent."""
+        r = self._redis()
+        done_key = tq.K("done")
+        page_keys = [self._page_key(p[0], p[1], p[2]) for p in pages]
+        name_keys = [self._name_key(s[0], s[1]) for s in summaries]
+        pipe = r.pipeline()
+        for k in page_keys + name_keys:
+            pipe.sismember(done_key, k)
+        flags = pipe.execute()
+        page_done = dict(zip(page_keys, flags[:len(page_keys)]))
+        name_done = dict(zip(name_keys, flags[len(page_keys):]))
+
+        new_pages = [p for p in pages if not page_done[self._page_key(p[0], p[1], p[2])]]
+        new_sums = [s for s in summaries if not name_done[self._name_key(s[0], s[1])]]
+        new_cases = [c for c in cases if not page_done.get(self._page_key(c[0], c[10], c[11]), False)]
+
+        if new_cases or new_pages or new_sums:
+            # Same content -> same id, so a retry after a lost reply is recognised by the script.
+            batch_id = hashlib.sha1(json.dumps([new_cases, new_pages, new_sums], sort_keys=True,
+                                               default=str).encode()).hexdigest()
+            self._call("write", batch_id=batch_id, cases=[list(c) for c in new_cases],
+                       pages=[list(p) for p in new_pages], summaries=[list(s) for s in new_sums])
+            marks = [self._page_key(p[0], p[1], p[2]) for p in new_pages] + \
+                    [self._name_key(s[0], s[1]) for s in new_sums]
+            if marks:
+                r.sadd(done_key, *marks)
+        return len(new_cases)
 
     def record_failed(self, task_key, payload, error, attempts):
-        conn = self.ensure()
-        with conn.cursor() as cur:
-            cur.execute(
-                "INSERT INTO failed_tasks (task_key, payload, error, attempts) VALUES (%s,%s,%s,%s)",
-                (task_key[:400], json.dumps(payload), str(error)[:500], attempts),
-            )
-        conn.commit()
+        self._call("failed", task_key=task_key[:400], payload=json.dumps(payload)[:2000],
+                   error=str(error)[:500], attempts=attempts)
+
+    # ---------- reads (names / pages sheets only) ----------
+    def _read(self, sheet, cols):
+        return self._call("read", sheet=sheet, cols=cols)["rows"]
+
+    @staticmethod
+    def _int(v):
+        try:
+            return int(float(v))
+        except (TypeError, ValueError):
+            return 0
+
+    def _latest_names(self, court):
+        """last_name -> (total_records, total_pages); later rows win."""
+        out = {}
+        for row in self._read("names", 4):
+            if str(row[0]) == court:
+                out[str(row[1])] = (self._int(row[2]), self._int(row[3]))
+        return out
 
     def done_names(self, court):
-        conn = self.ensure()
-        with conn.cursor() as cur:
-            cur.execute("SELECT last_name FROM name_summary WHERE court_code=%s", (court,))
-            return {r[0] for r in cur.fetchall()}
+        return set(self._latest_names(court))
 
     def missing_pages(self, court):
-        """(name, page, total_records) for every page the site reported but we have not stored."""
-        conn = self.ensure()
+        """(name, page, total_records) for every page the site reported but the sheet does not hold."""
+        names = self._latest_names(court)
+        have = {}
+        for row in self._read("pages", 3):
+            if str(row[0]) == court:
+                have.setdefault(str(row[1]), set()).add(self._int(row[2]))
         out = []
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                SELECT s.last_name, s.total_pages, s.total_records
-                FROM name_summary s
-                LEFT JOIN scraped_pages p ON p.court_code = s.court_code AND p.last_name = s.last_name
-                WHERE s.court_code = %s AND s.total_pages > 0
-                GROUP BY s.last_name, s.total_pages, s.total_records
-                HAVING COUNT(p.page) < s.total_pages
-                ORDER BY s.last_name
-                """,
-                (court,),
-            )
-            incomplete = cur.fetchall()
-            for name, total_pages, total_records in incomplete:
-                cur.execute("SELECT page FROM scraped_pages WHERE court_code=%s AND last_name=%s", (court, name))
-                have = {r[0] for r in cur.fetchall()}
-                out += [(name, p, total_records) for p in range(1, total_pages + 1) if p not in have]
+        for name in sorted(names):
+            total, total_pages = names[name]
+            got = have.get(name, set())
+            out += [(name, p, total) for p in range(1, total_pages + 1) if p not in got]
         return out
 
     def stats(self, court):
-        conn = self.ensure()
-        with conn.cursor() as cur:
-            cur.execute("SELECT count(*) FROM cases WHERE court_code=%s", (court,))
-            cases = cur.fetchone()[0]
-            cur.execute("SELECT count(*), coalesce(sum(total_records),0) FROM name_summary WHERE court_code=%s", (court,))
-            names, expected = cur.fetchone()
-            cur.execute("SELECT count(*) FROM failed_tasks")
-            failed = cur.fetchone()[0]
-            cur.execute("SELECT coalesce(round(sum(data_length+index_length)/1048576,1),0) "
-                        "FROM information_schema.tables WHERE table_schema = DATABASE()")
-            size = f"{cur.fetchone()[0]} MB"
-        conn.commit()
-        return {"cases": cases, "names_counted": names, "expected_records": int(expected),
-                "failed_tasks": failed, "db_size": size}
+        s = self._call("stats")
+        names = self._latest_names(court)
+        return {"cases": s["cases"], "names_counted": len(names),
+                "expected_records": sum(t for t, _ in names.values()),
+                "failed_tasks": s["failed"],
+                "db_size": f"{s['cells']:,} of {CELL_LIMIT:,} Google Sheets cells"}

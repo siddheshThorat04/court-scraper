@@ -50,7 +50,8 @@ def _auto_worker_id():
 
 
 # ---------------- infrastructure ----------------
-DATABASE_URL = _s("DATABASE_URL")
+SHEETS_URL = _s("SHEETS_URL")                     # Apps Script web-app URL (see apps_script/Code.gs)
+SHEETS_SECRET = _s("SHEETS_SECRET")
 REDIS_URL = _s("REDIS_URL", "redis://127.0.0.1:6379/0")
 PREFIX = _s("REDIS_PREFIX", "mi")
 PROJECT = _s("PROJECT_NAME", "court-scraper")
@@ -135,7 +136,7 @@ def build_url(court, name, page):
 
 
 def validate():
-    missing = [n for n, v in (("DATABASE_URL", DATABASE_URL), ("REDIS_URL", REDIS_URL)) if not v]
+    missing = [n for n, v in (("SHEETS_URL", SHEETS_URL), ("SHEETS_SECRET", SHEETS_SECRET), ("REDIS_URL", REDIS_URL)) if not v]
     if missing:
         raise SystemExit("Missing config: " + ", ".join(missing))
 

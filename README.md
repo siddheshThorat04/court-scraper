@@ -1,4 +1,4 @@
-# Court scraper – single VM, Redis queue, MySQL
+# Court scraper – single VM, Redis queue, Google Sheets
 
 ```
 names.xlsx → seed.py → Redis streams ─┬→ worker w1 ┐
@@ -12,7 +12,7 @@ names.xlsx → seed.py → Redis streams ─┬→ worker w1 ┐
 bash setup_vm.sh                    # chrome, xvfb, x11vnc, redis (local, AOF on), venv
 cp .env.example .env && chmod 600 .env && nano .env     # DATABASE_URL, WA_* ...
 source .venv/bin/activate
-psql "$DATABASE_URL" -f schema.sql  # creates tables
+python app_schema.py                # creates the sheets (see SHEETS_SETUP.md first)
 ```
 
 ## 2. Test before the real run (do this!)
@@ -58,7 +58,7 @@ Start/stop, every 1000 new records (rate + remaining), CAPTCHA, final failures, 
 * 4 failed attempts → dead-letter (Redis + `failed_tasks` table + WhatsApp). 6 failures in a row → global pause + alert.
 * Browser restarts every 300 page loads; one tab only; per-worker Chrome profile keeps cookies across restarts.
 * `GLOBAL_MIN_INTERVAL` is a shared rate limit across all workers; the multiplier backs off after each CAPTCHA.
-* Check your hosting plan's MySQL disk quota – watch `python ctl.py status` (DB size). Upgrade to pay-as-you-go before it fills.
+* Watch the cell count in `python ctl.py status` (a spreadsheet holds at most 10,000,000 cells, about 800k case rows) – watch `python ctl.py status` (DB size). Upgrade to pay-as-you-go before it fills.
 
 ---
 

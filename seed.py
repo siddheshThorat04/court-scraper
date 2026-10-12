@@ -17,7 +17,7 @@ def main():
     ap.add_argument("--file", default="names.xlsx")
     ap.add_argument("--column", default="NameLead")
     ap.add_argument("--court", default=config.COURT_CODE)
-    ap.add_argument("--force", action="store_true", help="also queue names already counted in the DB")
+    ap.add_argument("--force", action="store_true", help="also queue names already counted in the sheet")
     ap.add_argument("--new-config", action="store_true", help="accept changed dates/filters (only for a brand-new job)")
     args = ap.parse_args()
 
@@ -35,7 +35,7 @@ def main():
         names.append(s)
 
     skipped_done = 0
-    if not args.force and config.DATABASE_URL:
+    if not args.force and config.SHEETS_URL:
         done = DB().done_names(args.court)
         before = len(names)
         names = [n for n in names if n not in done]
@@ -55,7 +55,7 @@ def main():
     r.set(tq.START_TS, __import__("time").time(), nx=True)
     if queued:
         r.delete(tq.COMPLETE)  # allow a new "all done" notification
-    print(f"unique names in file: {len(seen)} | already done in DB: {skipped_done} | "
+    print(f"unique names in file: {len(seen)} | already done in sheet: {skipped_done} | "
           f"newly queued: {queued} | already queued earlier: {len(names) - queued}")
 
 

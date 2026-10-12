@@ -1,26 +1,12 @@
-"""Checks the MySQL connection and tells you what is wrong in plain words.   python test_db.py
-Never prints the password."""
-import socket
-
+"""Checks the Google Sheets web app connection.   python test_db.py   (never prints the secret)"""
 import config
-from db import DB, parse_url
+from db import DB
 
-kw = parse_url(config.DATABASE_URL)
-print(f"host={kw['host']} port={kw['port']} user={kw['user']} database={kw['database']} ssl={'ssl' in kw}")
-
+print("SHEETS_URL:", (config.SHEETS_URL[:60] + "...") if config.SHEETS_URL else "NOT SET")
 try:
-    socket.create_connection((kw["host"], kw["port"]), timeout=10).close()
-    print("1. network to host:port ........ OK")
-except OSError as e:
-    raise SystemExit(f"1. network to host:port ........ FAILED ({e})\n"
-                     "   -> wrong host/port, or your IP is not allowed under cPanel > Remote MySQL.")
-try:
-    c = DB().ensure()
-    with c.cursor() as cur:
-        cur.execute("SELECT VERSION(), DATABASE(), CURRENT_USER()")
-        print("2. login ....................... OK ->", cur.fetchone())
-        cur.execute("SHOW TABLES")
-        print("3. tables ...................... ", sorted(r[0] for r in cur.fetchall()) or "none yet (run: python app_schema.py)")
+    s = DB()._call("stats")
+    print(f"OK - cases rows: {s['cases']}, failed rows: {s['failed']}, cells used: {s['cells']:,} of 10,000,000")
 except Exception as e:  # noqa: BLE001
-    raise SystemExit(f"2. login ....................... FAILED ({str(e)[:200]})\n"
-                     "   -> check user/password, or try adding ?ssl=insecure to DATABASE_URL.")
+    raise SystemExit(f"FAILED: {str(e)[:250]}\n"
+                     "-> unauthorized: SHEETS_SECRET differs from the SECRET script property.\n"
+                     "-> 'did not return JSON': redeploy the web app with access set to 'Anyone'.")

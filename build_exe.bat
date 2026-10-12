@@ -12,7 +12,6 @@ python -m pip install -r requirements.txt pyinstaller
 pyinstaller --noconfirm --clean --onedir --name court_worker ^
   --collect-all seleniumbase ^
   --collect-all selenium ^
-  --collect-all pymysql ^
   worker_main.py
 
 copy .env.worker.example dist\court_worker\.env.example
