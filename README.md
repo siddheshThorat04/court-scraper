@@ -1,4 +1,4 @@
-# Court scraper – single VM, Redis queue, Neon Postgres
+# Court scraper – single VM, Redis queue, MySQL
 
 ```
 names.xlsx → seed.py → Redis streams ─┬→ worker w1 ┐
@@ -58,7 +58,7 @@ Start/stop, every 1000 new records (rate + remaining), CAPTCHA, final failures, 
 * 4 failed attempts → dead-letter (Redis + `failed_tasks` table + WhatsApp). 6 failures in a row → global pause + alert.
 * Browser restarts every 300 page loads; one tab only; per-worker Chrome profile keeps cookies across restarts.
 * `GLOBAL_MIN_INTERVAL` is a shared rate limit across all workers; the multiplier backs off after each CAPTCHA.
-* Neon free tier is 0.5 GB/project – watch `python ctl.py status` (DB size). Upgrade to pay-as-you-go before it fills.
+* Check your hosting plan's MySQL disk quota – watch `python ctl.py status` (DB size). Upgrade to pay-as-you-go before it fills.
 
 ---
 
