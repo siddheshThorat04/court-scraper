@@ -12,10 +12,27 @@ log = logging.getLogger("browser")
 SNAPSHOT_JS = """
 const q = s => document.querySelector(s);
 const vis = e => e && e.offsetWidth > 0 && e.offsetHeight > 0;
+// A *challenge* iframe: visible, big enough to be a puzzle, not the always-present reCAPTCHA badge,
+// not hidden through CSS. (The old selector 'iframe[src*=captcha]' also matched the permanent
+// reCAPTCHA v3 badge, so the CAPTCHA looked "unsolved" forever.)
+const isChallenge = f => {
+  if (!vis(f)) return false;
+  const st = getComputedStyle(f);
+  if (st.visibility === 'hidden' || st.display === 'none' || parseFloat(st.opacity) === 0) return false;
+  if (f.closest('.grecaptcha-badge')) return false;
+  const r = f.getBoundingClientRect();
+  if (r.width < 100 || r.height < 100) return false;
+  if (r.bottom < 0 || r.right < 0) return false;
+  return true;
+};
+const capFrames = Array.from(document.querySelectorAll(
+  "iframe[src*='arkoselabs'],iframe[src*='captcha'],iframe[src*='hcaptcha'],iframe[src*='turnstile'],iframe[src*='challenges.cloudflare']"
+)).filter(isChallenge);
 const c = q('#total-count-id');
 const inp = q("input[formcontrolname='lastName']");
 return {
-  captcha: Array.from(document.querySelectorAll("iframe[src*='arkoselabs'],iframe[src*='captcha']")).some(vis),
+  captcha: capFrames.length > 0,
+  capinfo: capFrames.map(f => (f.src || '').slice(0, 80)),
   tos: vis(q('#continue-button-id')),
   count: c ? c.innerText : null,
   items: document.querySelectorAll('app-case-search-results-item').length,
@@ -133,7 +150,12 @@ class Browser:
         self._single_tab()
         self.loads += 1
         self.driver.get(url)
-        deadline = time.time() + config.PAGE_TIMEOUT
+        return self.wait_ready(expect_name, config.PAGE_TIMEOUT)
+
+    def wait_ready(self, expect_name, timeout, soft=False):
+        """Wait on the CURRENT page for results / empty state / CAPTCHA. soft=True returns None on timeout
+        instead of raising (used right after a CAPTCHA was solved, before deciding to reload)."""
+        deadline = time.time() + timeout
         want = expect_name.strip().upper()
         while time.time() < deadline:
             try:
@@ -159,6 +181,8 @@ class Browser:
                 elif total is None and is_empty_state(snap):
                     return snap
             time.sleep(0.5)
+        if soft:
+            return None
         raise Retry(f"timeout waiting for results of {expect_name}")
 
     def extract(self):

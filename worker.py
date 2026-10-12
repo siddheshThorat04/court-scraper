@@ -199,7 +199,13 @@ class Worker:
         while True:
             snap = self.browser.load(url, task["name"])
             if snap.get("captcha"):
+                log.info("CAPTCHA frames seen: %s", snap.get("capinfo"))
                 self.handle_captcha(task["name"], page)
+                # The solved CAPTCHA usually lets the CURRENT page continue. Re-opening the URL throws that
+                # away and often triggers a brand-new CAPTCHA, so first wait for results on this same page.
+                snap = self.browser.wait_ready(task["name"], 20, soft=True)
+                if snap is not None and not snap.get("captcha"):
+                    return snap
                 continue
             return snap
 
