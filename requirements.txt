@@ -4,3 +4,6 @@ pandas>=2.0
 openpyxl>=3.1
 requests>=2.31
 python-dotenv>=1.0
+
+# Optional - only for BROWSER_ENGINE=camoufox (then run once: python -m camoufox fetch). Do NOT install x_driver in the same venv.
+# camoufox>=0.5

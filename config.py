@@ -94,6 +94,16 @@ FLUSH_SECONDS = _i("FLUSH_SECONDS", 30)                # ... or this many second
 
 # ---------------- browser ----------------
 USE_UC = _b("USE_UC", True)
+# Which browser to drive - change it in .env, no code edits:
+#   seleniumbase = Chrome via SeleniumBase (default)
+#   camoufox     = Camoufox (Firefox with built-in fingerprint spoofing) via Playwright.
+#                  Setup: pip install -U camoufox && python -m camoufox fetch  (use a venv WITHOUT x_driver)
+BROWSER_ENGINE = _s("BROWSER_ENGINE", "seleniumbase").lower()
+CAMOUFOX_HEADLESS = _s("CAMOUFOX_HEADLESS", "false").lower()  # false = visible window (needed for CAPTCHAs) | true | virtual (Linux/Xvfb)
+CAMOUFOX_OS = _s("CAMOUFOX_OS", "windows")                    # OS to present - keep it equal to the machine's real OS
+CAMOUFOX_PROXY = _s("CAMOUFOX_PROXY", "")                     # http://user:pass@host:port or socks5://host:port (optional)
+CAMOUFOX_GEOIP = _b("CAMOUFOX_GEOIP", False)                  # match timezone/locale to the exit IP (pip install "camoufox[geoip]")
+CAMOUFOX_EXECUTABLE = _s("CAMOUFOX_EXECUTABLE", "")           # custom Camoufox build (default: the one `camoufox fetch` installed)
 RECYCLE_AFTER = _i("RECYCLE_AFTER", 300)               # restart Chrome after N page loads (frees RAM)
 PROFILE_DIR = _s("PROFILE_DIR", str(Path.home() / ".court_scraper" / "profiles"))            # per-worker Chrome profile keeps cookies across restarts
 

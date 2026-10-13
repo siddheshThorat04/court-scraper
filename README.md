@@ -27,6 +27,19 @@ Check in the DB: `SELECT * FROM v_name_progress LIMIT 20;` – `scraped_records`
 2. WhatsApp: send a test (`WA_MODE=text` works only within 24 h of you messaging the number; otherwise use a template).
 3. A name with very many pages: does the site stop paging at some cap? Compare `total_records` vs rows saved.
 
+## 2b. Optional browser engine: Camoufox (Firefox)
+
+Default is Chrome through SeleniumBase. To try Camoufox (Firefox with built-in fingerprint handling) set `BROWSER_ENGINE=camoufox` in `.env`:
+
+```
+pip install -U camoufox        # in a venv WITHOUT x_driver (x_driver patches Playwright for Chromium only and crashes Firefox)
+python -m camoufox fetch       # one-time ~1.3 GB browser download per machine
+python test_one.py DAVA        # opens a Firefox window; solve a CAPTCHA by hand if one appears
+```
+
+Optional `.env` settings: `CAMOUFOX_OS` (keep = the real OS, default `windows`), `CAMOUFOX_PROXY`, `CAMOUFOX_GEOIP`, `CAMOUFOX_HEADLESS` (`false` = visible window, needed for CAPTCHAs), `CAMOUFOX_EXECUTABLE`.
+Firefox does not get Chrome's/Opera's VPN: use a system-wide VPN or `CAMOUFOX_PROXY`. The CAPTCHA flow is unchanged: a human solves it in the browser window.
+
 ## 3. Run for real
 ```bash
 tmux new -s scraper

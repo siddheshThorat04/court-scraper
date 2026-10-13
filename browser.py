@@ -80,13 +80,37 @@ class Browser:
     def __init__(self, worker_id):
         self.worker_id = worker_id
         self.driver = None
+        self.page = self._ctx = self._cm = None   # camoufox (Playwright) objects
         self.loads = 0
 
     # ---------- lifecycle ----------
+    def _pw_mode(self):
+        """True when the browser is driven through Playwright (camoufox) instead of Selenium."""
+        return config.BROWSER_ENGINE == "camoufox"
+
+    def _js(self, script):
+        """Run a JS snippet that may use a top-level `return` (Selenium style) on either engine."""
+        if self._pw_mode():
+            return self.page.evaluate("() => {" + script + "\n}")
+        return self.driver.execute_script(script)
+
+    def goto(self, url):
+        if self._pw_mode():
+            self.page.goto(url, wait_until="domcontentloaded")
+        else:
+            self.driver.get(url)
+
     def start(self):
-        from seleniumbase import Driver  # imported lazily so ctl.py/seed.py don't need it
-        profile = os.path.abspath(os.path.join(config.PROFILE_DIR, self.worker_id))
+        engine = config.BROWSER_ENGINE
+        if engine not in ("seleniumbase", "camoufox"):
+            raise SystemExit(f"BROWSER_ENGINE={engine!r} is not valid - use seleniumbase or camoufox")
+        # separate profile folder per engine: a Chrome profile and a Firefox profile must never be mixed
+        suffix = "" if engine == "seleniumbase" else "-" + engine
+        profile = os.path.abspath(os.path.join(config.PROFILE_DIR, self.worker_id + suffix))
         os.makedirs(profile, exist_ok=True)
+        if engine == "camoufox":
+            return self._start_camoufox(profile)
+        from seleniumbase import Driver  # imported lazily so ctl.py/seed.py don't need it
         log.info("Starting Chrome (profile %s)", profile)
         self.driver = Driver(
             uc=config.USE_UC,
@@ -96,7 +120,42 @@ class Browser:
         )
         self.loads = 0
 
+    def _start_camoufox(self, profile):
+        """Camoufox: Firefox with the fingerprint handled inside the browser, driven through Playwright.
+        No stealth JavaScript is injected from here. The operator still solves every CAPTCHA by hand."""
+        try:
+            from camoufox.sync_api import Camoufox  # lazy: only needed for this engine
+        except ImportError:
+            raise SystemExit("Camoufox is missing - run: pip install -U camoufox   and then:   python -m camoufox fetch") from None
+        headless = {"true": True, "virtual": "virtual"}.get(config.CAMOUFOX_HEADLESS, False)
+        kwargs = dict(headless=headless, persistent_context=True, user_data_dir=profile,
+                      os=config.CAMOUFOX_OS, geoip=config.CAMOUFOX_GEOIP)
+        if config.CAMOUFOX_EXECUTABLE:
+            kwargs["executable_path"] = config.CAMOUFOX_EXECUTABLE
+        if config.CAMOUFOX_PROXY:
+            from urllib.parse import urlparse
+            u = urlparse(config.CAMOUFOX_PROXY)
+            kwargs["proxy"] = {"server": f"{u.scheme}://{u.hostname}:{u.port}"}
+            if u.username:
+                kwargs["proxy"].update(username=u.username, password=u.password or "")
+        log.info("Starting Camoufox (profile %s, os=%s, headless=%s, proxy=%s)", profile, config.CAMOUFOX_OS,
+                 headless, "yes" if config.CAMOUFOX_PROXY else "no")
+        self._cm = Camoufox(**kwargs)
+        self._ctx = self._cm.__enter__()          # persistent_context=True -> a BrowserContext
+        self._ctx.set_default_timeout(config.PAGE_TIMEOUT * 1000)
+        self.page = self._ctx.pages[0] if self._ctx.pages else self._ctx.new_page()
+        self.driver = self.page  # truthy marker used by ensure()/close()
+        self.loads = 0
+
     def close(self):
+        if self._pw_mode():
+            if self._cm is not None:
+                try:
+                    self._cm.__exit__(None, None, None)
+                except Exception:  # noqa: BLE001
+                    pass
+            self._cm = self._ctx = self.page = self.driver = None
+            return
         if self.driver is not None:
             try:
                 self.driver.quit()
@@ -118,6 +177,14 @@ class Browser:
 
     def _single_tab(self):
         """Keep exactly one tab open so memory does not creep up."""
+        if self._pw_mode():
+            try:
+                for p in list(self._ctx.pages):
+                    if p is not self.page:
+                        p.close()
+            except Exception as e:  # noqa: BLE001
+                log.debug("tab cleanup: %s", e)
+            return
         try:
             handles = self.driver.window_handles
             if len(handles) > 1:
@@ -130,6 +197,12 @@ class Browser:
 
     def bring_to_front(self):
         """Raise the window so the operator sees the CAPTCHA straight away."""
+        if self._pw_mode():
+            try:
+                self.page.bring_to_front()
+            except Exception as e:  # noqa: BLE001
+                log.debug("bring_to_front: %s", e)
+            return
         try:
             self.driver.switch_to.window(self.driver.current_window_handle)
             self.driver.maximize_window()
@@ -138,7 +211,7 @@ class Browser:
 
     # ---------- page access ----------
     def snapshot(self):
-        return self.driver.execute_script(SNAPSHOT_JS)
+        return self._js(SNAPSHOT_JS)
 
     def load(self, url, expect_name):
         """Open url and wait until the results (or empty state / CAPTCHA) are really there.
@@ -149,7 +222,7 @@ class Browser:
         self.ensure()
         self._single_tab()
         self.loads += 1
-        self.driver.get(url)
+        self.goto(url)
         return self.wait_ready(expect_name, config.PAGE_TIMEOUT)
 
     def wait_ready(self, expect_name, timeout, soft=False):
@@ -167,7 +240,7 @@ class Browser:
             if snap["captcha"]:
                 return snap
             if snap["tos"]:
-                self.driver.execute_script(TOS_JS)
+                self._js(TOS_JS)
                 time.sleep(1.2)
                 continue
             nameval = snap.get("nameval")
@@ -187,13 +260,13 @@ class Browser:
 
     def extract(self):
         """All cases on the current page, read in one JS call."""
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        self._js("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(0.4)
-        self.driver.execute_script("window.scrollTo(0, 0);")
-        rows = self.driver.execute_script(EXTRACT_JS) or []
+        self._js("window.scrollTo(0, 0);")
+        rows = self._js(EXTRACT_JS) or []
         if any(not r["case_id"] for r in rows):  # not fully rendered yet - look once more
             time.sleep(1.5)
-            rows = self.driver.execute_script(EXTRACT_JS) or []
+            rows = self._js(EXTRACT_JS) or []
         if any(not r["case_id"] for r in rows):
             raise Retry("some cases had no case id (page not fully rendered)")
         return rows
