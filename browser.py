@@ -80,18 +80,25 @@ class Browser:
     def __init__(self, worker_id):
         self.worker_id = worker_id
         self.driver = None
-        self.page = self._ctx = self._cm = None   # camoufox (Playwright) objects
+        self.page = self._ctx = self._cm = self._pw = None   # Playwright objects (camoufox / xdriver)
         self.loads = 0
 
     # ---------- lifecycle ----------
     def _pw_mode(self):
-        """True when the browser is driven through Playwright (camoufox) instead of Selenium."""
-        return config.BROWSER_ENGINE == "camoufox"
+        """True when the browser is driven through Playwright (camoufox / xdriver) instead of Selenium."""
+        return config.BROWSER_ENGINE in ("camoufox", "xdriver")
 
     def _js(self, script):
         """Run a JS snippet that may use a top-level `return` (Selenium style) on either engine."""
         if self._pw_mode():
-            return self.page.evaluate("() => {" + script + "\n}")
+            expr = "() => {" + script + "\n}"
+            try:
+                return self.page.evaluate(expr)
+            except Exception as e:  # noqa: BLE001
+                if "context was destroyed" not in str(e):   # a navigation happened mid-call: wait, run once more
+                    raise
+                self.page.wait_for_load_state("domcontentloaded")
+                return self.page.evaluate(expr)
         return self.driver.execute_script(script)
 
     def goto(self, url):
@@ -102,14 +109,16 @@ class Browser:
 
     def start(self):
         engine = config.BROWSER_ENGINE
-        if engine not in ("seleniumbase", "camoufox"):
-            raise SystemExit(f"BROWSER_ENGINE={engine!r} is not valid - use seleniumbase or camoufox")
+        if engine not in ("seleniumbase", "camoufox", "xdriver"):
+            raise SystemExit(f"BROWSER_ENGINE={engine!r} is not valid - use seleniumbase, camoufox or xdriver")
         # separate profile folder per engine: a Chrome profile and a Firefox profile must never be mixed
         suffix = "" if engine == "seleniumbase" else "-" + engine
         profile = os.path.abspath(os.path.join(config.PROFILE_DIR, self.worker_id + suffix))
         os.makedirs(profile, exist_ok=True)
         if engine == "camoufox":
             return self._start_camoufox(profile)
+        if engine == "xdriver":
+            return self._start_xdriver(profile)
         from seleniumbase import Driver  # imported lazily so ctl.py/seed.py don't need it
         log.info("Starting Chrome (profile %s)", profile)
         self.driver = Driver(
@@ -147,14 +156,54 @@ class Browser:
         self.driver = self.page  # truthy marker used by ensure()/close()
         self.loads = 0
 
+    def _start_xdriver(self, profile):
+        """XDriver = stock Playwright 1.52.0 whose installed source was patched by `x_driver activate`.
+        Nothing stealth-related is done here: this is plain Playwright Chromium. If the patch is missing the
+        browser still starts, it just behaves like unpatched Playwright."""
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            raise SystemExit("Playwright is missing - in this venv run: pip install playwright==1.52.0 "
+                             "git+https://github.com/arjun-sha/XDriver.git@v1.0.1 ; x_driver activate ; "
+                             "playwright install chromium") from None
+        # Playwright's default --enable-automation (and the AutomationControlled Blink feature) make Chromium report
+        # navigator.webdriver = true; XDriver's patch does not change that, so switch both off here.
+        kwargs = dict(user_data_dir=profile, headless=config.XDRIVER_HEADLESS, no_viewport=True,
+                      ignore_default_args=["--enable-automation"],
+                      args=["--start-maximized", "--disable-blink-features=AutomationControlled"])
+        if config.XDRIVER_EXECUTABLE:
+            kwargs["executable_path"] = config.XDRIVER_EXECUTABLE
+        elif config.BROWSER_CHANNEL:
+            kwargs["channel"] = config.BROWSER_CHANNEL
+        log.info("Starting XDriver/Playwright Chromium (profile %s, channel=%s, headless=%s)", profile,
+                 config.BROWSER_CHANNEL or config.XDRIVER_EXECUTABLE or "bundled", config.XDRIVER_HEADLESS)
+        self._pw = sync_playwright().start()
+        try:
+            self._ctx = self._pw.chromium.launch_persistent_context(**kwargs)
+        except Exception:
+            self._pw.stop()
+            self._pw = None
+            raise
+        self._ctx.set_default_timeout(config.PAGE_TIMEOUT * 1000)
+        self.page = self._ctx.pages[0] if self._ctx.pages else self._ctx.new_page()
+        self.driver = self.page  # truthy marker used by ensure()/close()
+        self.loads = 0
+
     def close(self):
         if self._pw_mode():
-            if self._cm is not None:
+            if self._cm is not None:   # camoufox: its context manager closes everything
                 try:
                     self._cm.__exit__(None, None, None)
                 except Exception:  # noqa: BLE001
                     pass
-            self._cm = self._ctx = self.page = self.driver = None
+            else:                      # xdriver: close the context, then stop Playwright
+                for obj, meth in ((self._ctx, "close"), (self._pw, "stop")):
+                    try:
+                        if obj is not None:
+                            getattr(obj, meth)()
+                    except Exception:  # noqa: BLE001
+                        pass
+            self._cm = self._ctx = self._pw = self.page = self.driver = None
             return
         if self.driver is not None:
             try:

@@ -40,6 +40,20 @@ python test_one.py DAVA        # opens a Firefox window; solve a CAPTCHA by hand
 Optional `.env` settings: `CAMOUFOX_OS` (keep = the real OS, default `windows`), `CAMOUFOX_PROXY`, `CAMOUFOX_GEOIP`, `CAMOUFOX_HEADLESS` (`false` = visible window, needed for CAPTCHAs), `CAMOUFOX_EXECUTABLE`.
 Firefox does not get Chrome's/Opera's VPN: use a system-wide VPN or `CAMOUFOX_PROXY`. The CAPTCHA flow is unchanged: a human solves it in the browser window.
 
+### XDriver (Chromium) engine
+
+`BROWSER_ENGINE=xdriver` drives Playwright Chromium. XDriver is a tool that PATCHES the Playwright installed in a venv, and it needs exactly Playwright 1.52.0, so give it its own venv (never the Camoufox one - the patch crashes Firefox):
+
+```
+set PYTHONUTF8=1                # Windows only, before installing
+pip install playwright==1.52.0 git+https://github.com/arjun-sha/XDriver.git@v1.0.1
+x_driver activate
+playwright install chromium     # or set BROWSER_CHANNEL=chrome to use the installed Google Chrome
+python test_one.py DAVA
+```
+
+Optional `.env`: `BROWSER_CHANNEL`, `XDRIVER_EXECUTABLE` (path to a specific Chromium/Chrome), `XDRIVER_HEADLESS` (keep false). The engine also switches off Playwright's `--enable-automation` and the `AutomationControlled` Blink feature, because XDriver's patch alone left `navigator.webdriver` at `true` in testing. Check the `navigator` block that `test_one.py` prints.
+
 ## 3. Run for real
 ```bash
 tmux new -s scraper

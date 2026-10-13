@@ -96,6 +96,9 @@ FLUSH_SECONDS = _i("FLUSH_SECONDS", 30)                # ... or this many second
 USE_UC = _b("USE_UC", True)
 # Which browser to drive - change it in .env, no code edits:
 #   seleniumbase = Chrome via SeleniumBase (default)
+#   xdriver      = Playwright 1.52.0 patched by XDriver (Chromium). Setup, in its OWN venv (never the camoufox one):
+#                  set PYTHONUTF8=1 (Windows) ; pip install playwright==1.52.0 git+https://github.com/arjun-sha/XDriver.git@v1.0.1
+#                  x_driver activate ; playwright install chromium
 #   camoufox     = Camoufox (Firefox with built-in fingerprint spoofing) via Playwright.
 #                  Setup: pip install -U camoufox && python -m camoufox fetch  (use a venv WITHOUT x_driver)
 BROWSER_ENGINE = _s("BROWSER_ENGINE", "seleniumbase").lower()
@@ -104,6 +107,9 @@ CAMOUFOX_OS = _s("CAMOUFOX_OS", "windows")                    # OS to present - 
 CAMOUFOX_PROXY = _s("CAMOUFOX_PROXY", "")                     # http://user:pass@host:port or socks5://host:port (optional)
 CAMOUFOX_GEOIP = _b("CAMOUFOX_GEOIP", False)                  # match timezone/locale to the exit IP (pip install "camoufox[geoip]")
 CAMOUFOX_EXECUTABLE = _s("CAMOUFOX_EXECUTABLE", "")           # custom Camoufox build (default: the one `camoufox fetch` installed)
+BROWSER_CHANNEL = _s("BROWSER_CHANNEL", "")                  # xdriver only: "" = Playwright's Chromium, "chrome" = installed Google Chrome
+XDRIVER_EXECUTABLE = _s("XDRIVER_EXECUTABLE", "")             # xdriver only: path to a specific Chromium/Chrome binary (overrides channel)
+XDRIVER_HEADLESS = _b("XDRIVER_HEADLESS", False)              # xdriver only: keep False - a human must see the CAPTCHA
 RECYCLE_AFTER = _i("RECYCLE_AFTER", 300)               # restart Chrome after N page loads (frees RAM)
 PROFILE_DIR = _s("PROFILE_DIR", str(Path.home() / ".court_scraper" / "profiles"))            # per-worker Chrome profile keeps cookies across restarts
 

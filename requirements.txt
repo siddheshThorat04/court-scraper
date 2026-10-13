@@ -7,3 +7,4 @@ python-dotenv>=1.0
 
 # Optional - only for BROWSER_ENGINE=camoufox (then run once: python -m camoufox fetch). Do NOT install x_driver in the same venv.
 # camoufox>=0.5
+# Optional - only for BROWSER_ENGINE=xdriver, in its OWN venv: playwright==1.52.0 + git+https://github.com/arjun-sha/XDriver.git@v1.0.1 , then: x_driver activate
