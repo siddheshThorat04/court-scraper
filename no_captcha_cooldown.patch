@@ -1,0 +1,13 @@
+diff --git a/config.py b/config.py
+index 791d470..0e100b3 100644
+--- a/config.py
++++ b/config.py
+@@ -80,7 +80,7 @@ GLOBAL_MIN_INTERVAL = _f("GLOBAL_MIN_INTERVAL", 3.0)   # min seconds between ANY
+ MIN_DELAY = _f("MIN_DELAY", 3.0)                       # extra per-worker pause after each task
+ MAX_DELAY = _f("MAX_DELAY", 6.0)
+ MAX_MULT = _f("MAX_MULT", 4.0)                         # slow-down cap after repeated CAPTCHAs
+-CAPTCHA_COOLDOWN = _i("CAPTCHA_COOLDOWN", 90)          # seconds to wait after a CAPTCHA is solved
++CAPTCHA_COOLDOWN = _i("CAPTCHA_COOLDOWN", 0)           # seconds to wait after a CAPTCHA is solved (0 = carry on straight away; was 90)
+ 
+ # ---------------- retries ----------------
+ MAX_ATTEMPTS = _i("MAX_ATTEMPTS", 4)
