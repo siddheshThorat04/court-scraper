@@ -230,6 +230,7 @@ class Worker:
             else:
                 raise Retry("no count element and no empty-state text")
         if total == 0:
+            tq.record_census(self.r, court, name, 0, 0)
             self.buf.summaries.append((court, name, 0, 0, "empty"))
             self.buf.add_ack(stream, mid, tq.task_id(task))
             return
@@ -241,6 +242,7 @@ class Worker:
         if pages > config.WARN_PAGES:
             self.n.warn(f"{name} has {pages} pages ({total} records) - site may cap results; check completeness")
         tq.enqueue_pages(self.r, court, name, range(2, pages + 1), total)
+        tq.record_census(self.r, court, name, total, pages)
         self.buf.summaries.append((court, name, total, pages, "counted"))
         self.buf.pages.append((court, name, 1, len(cases)))
         self.buf.cases.extend(self._rows(task, 1, cases))
@@ -314,6 +316,10 @@ class Worker:
         if b.tids:
             self.r.hdel(tq.ATTEMPTS, *b.tids)   # keep Redis small
         total = self.r.incrby(tq.TOTAL, inserted)
+        try:
+            tq.record_progress(self.r, sum(len(ids) for ids in b.acks.values()), len(b.pages))
+        except Exception as e:  # noqa: BLE001 - progress numbers must never break saving
+            log.warning("progress counters: %s", e)
         self.r.set(tq.LAST_PROGRESS, time.time())
         log.info("flushed: %d new rows (scraped %d, %d pages) total=%d", inserted, len(b.cases), len(b.pages), total)
         self.check_milestone(total, inserted)

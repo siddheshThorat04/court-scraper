@@ -33,6 +33,17 @@ LAST_PROGRESS = K("stats:last_progress_ts")
 START_TS = K("stats:start_ts")
 COMPLETE = K("notified:complete")
 
+# ---- census / progress counters (see progress.py) ----
+C_PAIRS_TOTAL = K("census:pairs_total")   # (court, name) pairs seeded
+C_PAIRS_DONE = K("census:pairs_done")     # pairs whose page 1 has been read (total count known)
+C_PAIRS_ZERO = K("census:pairs_zero")     # ... of which had zero records
+C_RECORDS = K("census:records")           # sum of "Total Record Count" over counted pairs
+C_PAGES = K("census:pages")               # sum of page counts (incl. page 1) over non-empty counted pairs
+C_SEEN = K("census:seen")                 # set of counted pairs -> each pair is counted once, even if retried
+P_LOADS = K("progress:loads_done")        # tasks finished (census loads + page loads)
+P_PAGES = K("progress:pages_done")        # data pages saved
+P_SAMPLES = K("progress:samples")         # zset of "ts:loads_done" samples -> recent speed for the ETA
+
 _ENQUEUE_LUA = """
 local n = 0
 for i = 1, #ARGV, 2 do
@@ -77,6 +88,45 @@ def enqueue_names(r, court, names):
     return _enqueue(r, SEEN_NAME, S_NAME, items)
 
 
+def enqueue_pairs(r, pairs):
+    """pairs = [(court, name), ...] - any mix of courts and names; returns number actually enqueued."""
+    items = [(f"{c}|{n}", {"stage": "name", "court": c, "name": n, "page": 1}) for c, n in pairs]
+    return _enqueue(r, SEEN_NAME, S_NAME, items)
+
+
+_CENSUS_LUA = """
+if redis.call('SADD', KEYS[1], ARGV[1]) == 1 then
+  redis.call('INCR', KEYS[2])
+  if tonumber(ARGV[2]) == 0 then
+    redis.call('INCR', KEYS[3])
+  else
+    redis.call('INCRBY', KEYS[4], ARGV[2])
+    redis.call('INCRBY', KEYS[5], ARGV[3])
+  end
+  return 1
+end
+return 0
+"""
+
+
+def record_census(r, court, name, total, pages):
+    """Count one (court, name) pair exactly once: its total records and page count are now known."""
+    return int(r.register_script(_CENSUS_LUA)(
+        keys=[C_SEEN, C_PAIRS_DONE, C_PAIRS_ZERO, C_RECORDS, C_PAGES],
+        args=[f"{court}|{name}", int(total), int(pages)]))
+
+
+def record_progress(r, loads, pages):
+    """Called after a batch is committed: `loads` tasks finished, `pages` data pages saved."""
+    now = time.time()
+    pipe = r.pipeline()
+    pipe.incrby(P_LOADS, int(loads))
+    pipe.incrby(P_PAGES, int(pages))
+    done = pipe.execute()[0]
+    r.zadd(P_SAMPLES, {f"{int(now)}:{done}": now})
+    r.zremrangebyscore(P_SAMPLES, 0, now - 7200)
+
+
 def enqueue_pages(r, court, name, pages, total):
     items = [(f"{court}|{name}|{p}",
               {"stage": "page", "court": court, "name": name, "page": p, "total": total}) for p in pages]
@@ -84,8 +134,11 @@ def enqueue_pages(r, court, name, pages, total):
 
 
 def fetch(r, consumer):
-    """Next task as (stream, msg_id, task) or None. Pages first, stale/failed tasks before new ones."""
-    for stream in (S_PAGE, S_NAME):
+    """Next task as (stream, msg_id, task) or None. Stale/failed tasks before new ones.
+    CENSUS_FIRST (default on): every (court, name) count task before any page task, so all totals are known
+    early and the progress / ETA is meaningful. Set CENSUS_FIRST=0 in .env for the old pages-first order."""
+    census_first = getattr(config, "CENSUS_FIRST", True)
+    for stream in ((S_NAME, S_PAGE) if census_first else (S_PAGE, S_NAME)):
         try:
             res = r.xautoclaim(stream, GROUP, consumer, min_idle_time=config.RETRY_IDLE_MS,
                                start_id="0-0", count=1)
