@@ -1,0 +1,41 @@
+{
+ "url": "https://micourt.courts.michigan.gov/case-search/assets/config.json",
+ "body": {
+  "openIdConfiguration": {
+   "configId": "casesearch.ui",
+   "authority": "https://login.courts.michigan.gov",
+   "redirectUrl": "https://micourt.courts.michigan.gov/case-search",
+   "postLogoutRedirectUri": "https://micourt.courts.michigan.gov/case-search",
+   "clientId": "micourt.casesearch.ui",
+   "scope": "affiliation openid micourt.case.search jisuser_profile offline_access identity.api.public.read",
+   "responseType": "code",
+   "silentRenew": true,
+   "useRefreshToken": true,
+   "renewTimeBeforeTokenExpiresInSeconds": 30,
+   "autoCleanStateAfterAuthentication": false,
+   "disableIdTokenValidation": true,
+   "secureRoutes": [
+    "https://micourt.courts.michigan.gov/api/casesearch/v1/"
+   ]
+  },
+  "caseSearchApiUrl": "https://micourt.courts.michigan.gov/api/casesearch/v1/",
+  "environment": "production",
+  "hcaptchaSiteKey": "9f51b76c-8620-4fa3-b06b-7620b3ce6775",
+  "hcaptchaBypass": false,
+  "pendoApiKey": "",
+  "allowBackgroundLogin": true,
+  "importEnabler": {
+   "isEnablePendo": true,
+   "isEnableDatadog": false,
+   "isEnableFeatureFlag": false
+  },
+  "datadogRumConfig": {
+   "applicationId": "d08db97e-b956-4a15-8915-5fa18f06b8c2",
+   "clientToken": "pub2ec14a530138754136e7eca24331312d",
+   "service": "micourt-suite-casesearch-ui",
+   "sessionSampleRate": 0,
+   "sessionReplaySampleRate": 0
+  },
+  "appInsightsInstrumentationKey": "7925ce4f-36df-4c16-9e4f-dd4abd478ec9"
+ }
+}

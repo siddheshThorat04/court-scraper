@@ -1,0 +1,71 @@
+{
+ "url": "https://js.monitor.azure.com/scripts/b/ai.config.1.cfg.json",
+ "body": {
+  "version": "1.0.5",
+  "enabled": true,
+  "featureOptIn": {
+   "iKeyUsage": {
+    "mode": 3,
+    "onCfg": {
+     "throttleMgrCfg.109.disabled": false,
+     "throttleMgrCfg.106.disabled": false
+    },
+    "offCfg": {
+     "throttleMgrCfg.109.disabled": true,
+     "throttleMgrCfg.106.disabled": true
+    }
+   },
+   "CdnUsage": {
+    "mode": 4,
+    "onCfg": {
+     "throttleMgrCfg.109.disabled": false,
+     "throttleMgrCfg.110.disabled": false
+    },
+    "offCfg": {
+     "throttleMgrCfg.109.disabled": true,
+     "throttleMgrCfg.110.disabled": true
+    }
+   }
+  },
+  "config": {
+   "throttleMgrCfg": {
+    "109": {
+     "disabled": false,
+     "limit": {
+      "samplingRate": 1,
+      "maxSendNumber": 1
+     },
+     "interval": {
+      "monthInterval": 2,
+      "daysOfMonth": [
+       1
+      ]
+     }
+    },
+    "106": {
+     "disabled": false,
+     "limit": {
+      "samplingRate": 1,
+      "maxSendNumber": 1
+     },
+     "interval": {
+      "monthInterval": 2,
+      "daysOfMonth": [
+       1
+      ]
+     }
+    },
+    "110": {
+     "disabled": false,
+     "limit": {
+      "samplingRate": 400000,
+      "maxSendNumber": 1
+     },
+     "interval": {
+      "dayInterval": 1
+     }
+    }
+   }
+  }
+ }
+}

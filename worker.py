@@ -8,6 +8,7 @@ Stage 2 ("page" task): open page N -> save its cases.
 CAPTCHA -> pause ALL workers, WhatsApp alert, wait for you to solve it over VNC, then auto-resume.
 Exit codes: 0 = clean stop, 1 = crash (run_workers.sh restarts it).
 """
+from email.mime import base
 import json
 import logging
 import math
@@ -129,14 +130,15 @@ class Worker:
 
     # ------------------------------------------------------------------ pause / captcha
     def rate_gate(self):
-        """Global spacing between page loads across all workers."""
-        base = float(self.r.get(tq.K("cfg:min_interval")) or config.GLOBAL_MIN_INTERVAL)   # owner-controlled, shared
+        base = float(self.r.get(tq.K("cfg:min_interval")) or config.GLOBAL_MIN_INTERVAL)
         px = int(base * tq.get_mult(self.r) * 1000)
+        if px <= 0:
+              return
         deadline = time.time() + 120
         while not self.r.set(tq.GATE, 1, nx=True, px=px):
             if self.should_stop() or time.time() > deadline:
                 return
-            time.sleep(0.25)
+        time.sleep(0.25)
 
     @staticmethod
     def local_alert(msg):

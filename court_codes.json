@@ -1,0 +1,1722 @@
+[
+  {
+    "county": "Alcona County",
+    "court_name": "81-1 District Court",
+    "description": "106 5th St. Harrisville, MI 48740",
+    "has_7yr_filter": true,
+    "code": "D81~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D81~1"
+  },
+  {
+    "county": "Alger County",
+    "court_name": "11th Circuit Court - Alger",
+    "description": "101 Court St, Munising, MI 49862",
+    "has_7yr_filter": false,
+    "code": "C11~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C11~1"
+  },
+  {
+    "county": "Alger County",
+    "court_name": "D93~1 Alger",
+    "description": "101 Court St, Munising, MI 49862",
+    "has_7yr_filter": false,
+    "code": "D93~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D93~1"
+  },
+  {
+    "county": "Allegan County",
+    "court_name": "48th Circuit Court",
+    "description": "Allegan County Building ,113 Chestnut St., Allegan, MI 49010",
+    "has_7yr_filter": false,
+    "code": "C48",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C48"
+  },
+  {
+    "county": "Allegan County",
+    "court_name": "57th District Court",
+    "description": "Allegan County Building, 113 Chestnut St., Allegan, MI 49010",
+    "has_7yr_filter": false,
+    "code": "D57",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D57"
+  },
+  {
+    "county": "Allegan County",
+    "court_name": "Allegan County Probate Court",
+    "description": "Allegan County Building, 113 Chestnut St., Allegan, MI 49010",
+    "has_7yr_filter": false,
+    "code": "P03",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P03"
+  },
+  {
+    "county": "Alpena County",
+    "court_name": "26th Circuit Court - Alpena (C26~1)",
+    "description": "Alpena County Courthouse, 720 W. Chisholm St. Alpena, MI 49707",
+    "has_7yr_filter": false,
+    "code": "C26~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C26~1"
+  },
+  {
+    "county": "Alpena County",
+    "court_name": "88-1 District Court, Alpena County",
+    "description": "719 Chisholm St., Alpena, MI 49707",
+    "has_7yr_filter": false,
+    "code": "D88~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D88~1"
+  },
+  {
+    "county": "Alpena County",
+    "court_name": "Alpena County Probate Court",
+    "description": "Alpena County Office Building, 719 W. Chisholm St., Alpena, MI 49707",
+    "has_7yr_filter": false,
+    "code": "P04",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P04"
+  },
+  {
+    "county": "Antrim County",
+    "court_name": "86th District Court",
+    "description": "3 Locations: Robert P. Griffin Hall of Justice 280 Washington St., Traverse City, MI 49684; Antrim County Building 205 Cayuga, PO Box 597, Bellaire, MI 49615; Leelanau - 8527 E. Government Center Dr., Suttons Bay, MI 49682",
+    "has_7yr_filter": true,
+    "code": "D86",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D86"
+  },
+  {
+    "county": "Antrim County",
+    "court_name": "P05 Antrim",
+    "description": "Antrim County Probate Court - Bellaire",
+    "has_7yr_filter": false,
+    "code": "P05",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P05"
+  },
+  {
+    "county": "Arenac County",
+    "court_name": "23rd Circuit Court - Arenac",
+    "description": "Arenac County Courthouse, 120 N. Grove, Standish, MI 48658",
+    "has_7yr_filter": false,
+    "code": "C23~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C23~2"
+  },
+  {
+    "county": "Arenac County",
+    "court_name": "81-2 District Court",
+    "description": "120 N. Grove Street, PO Box 129. Standish, Michigan 48658",
+    "has_7yr_filter": false,
+    "code": "D81~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D81~2"
+  },
+  {
+    "county": "Baraga County",
+    "court_name": "12th Baraga Circuit Court",
+    "description": "Baraga County Courthouse, 16 North Third St., L'Anse, MI 49946",
+    "has_7yr_filter": false,
+    "code": "C12~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C12~1"
+  },
+  {
+    "county": "Baraga County",
+    "court_name": "D97~1 Baraga",
+    "description": "16 N. Third St, L'Anse, 49946",
+    "has_7yr_filter": false,
+    "code": "D97~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D97~1"
+  },
+  {
+    "county": "Barry County",
+    "court_name": "56B District Court",
+    "description": "206 W. Court St., Ste. 202, Hastings, MI 49058",
+    "has_7yr_filter": false,
+    "code": "D56B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D56B"
+  },
+  {
+    "county": "Barry County",
+    "court_name": "5th Circuit Court",
+    "description": "220 W. State St., Hastings, MI 49058",
+    "has_7yr_filter": false,
+    "code": "C05",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C05"
+  },
+  {
+    "county": "Barry County",
+    "court_name": "Barry County Probate Court",
+    "description": "206 W. Court St., Ste. 302, Hastings, MI 49058",
+    "has_7yr_filter": false,
+    "code": "P08",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P08"
+  },
+  {
+    "county": "Bay County",
+    "court_name": "18th Circuit Court",
+    "description": "Bay County Court Facility, 1230 Washington Ave. Suite 725, Bay City, MI 48708-5737",
+    "has_7yr_filter": false,
+    "code": "C18",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C18"
+  },
+  {
+    "county": "Bay County",
+    "court_name": "Bay County Probate Court",
+    "description": "1230 Washington Ave. Suite 715, Bay City, MI 48708-5737",
+    "has_7yr_filter": false,
+    "code": "P09",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P09"
+  },
+  {
+    "county": "Benzie County",
+    "court_name": "19th Circuit Court - Benzie",
+    "description": "Government Center - Upper Level, 448 Court Place, Beulah, MI 49617",
+    "has_7yr_filter": false,
+    "code": "C19~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C19~1"
+  },
+  {
+    "county": "Benzie County",
+    "court_name": "85-1 District Court",
+    "description": "Upper Level - Government Center, 448 Court Place, Beulah, MI 49617",
+    "has_7yr_filter": true,
+    "code": "D85-1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D85-1"
+  },
+  {
+    "county": "Benzie County",
+    "court_name": "Benzie County Probate Court",
+    "description": "Government Center - Upper Level, 448 Court Place, Beulah, MI 49617",
+    "has_7yr_filter": false,
+    "code": "P10",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P10"
+  },
+  {
+    "county": "Branch County",
+    "court_name": "15th Circuit Court",
+    "description": "Branch County Courthouse, 31 Division Street, Coldwater, MI 49036",
+    "has_7yr_filter": false,
+    "code": "C15",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C15"
+  },
+  {
+    "county": "Calhoun County",
+    "court_name": "10th District Court - Calhoun",
+    "description": "10th District Court, 161 East Michigan Avenue, Battle Creek, MI 49014",
+    "has_7yr_filter": false,
+    "code": "D10",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D10"
+  },
+  {
+    "county": "Calhoun County",
+    "court_name": "37th Circuit Court",
+    "description": "Justice Center - 161 E. Michigan Avenue Battle Creek, MI 49014-4066",
+    "has_7yr_filter": false,
+    "code": "C37",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C37"
+  },
+  {
+    "county": "Calhoun County",
+    "court_name": "Calhoun County Probate Court",
+    "description": "Justice Center, 161 E. Michigan Ave., Battle Creek, MI 49014",
+    "has_7yr_filter": false,
+    "code": "P13",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P13"
+  },
+  {
+    "county": "Cass County",
+    "court_name": "43rd Circuit Court",
+    "description": "Law and Courts Building, 60296 M-62, Cassopolis, MI 49031",
+    "has_7yr_filter": false,
+    "code": "C43",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C43"
+  },
+  {
+    "county": "Cass County",
+    "court_name": "4th District Court",
+    "description": "Law and Courts Building, 60296 M-62, Cassopolis, MI 49031",
+    "has_7yr_filter": false,
+    "code": "D04",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D04"
+  },
+  {
+    "county": "Cass County",
+    "court_name": "Cass County Probate Court",
+    "description": "Law and Courts Building, 60296 M-62, Cassopolis, MI 49031",
+    "has_7yr_filter": false,
+    "code": "P14",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P14"
+  },
+  {
+    "county": "Cheboygan County",
+    "court_name": "53rd Circuit Court - Cheboygan",
+    "description": "Cheboygan County Building, 870 S. Main Street, PO Box 70, Cheboygan, MI 49721",
+    "has_7yr_filter": false,
+    "code": "C53~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C53~1"
+  },
+  {
+    "county": "Cheboygan County",
+    "court_name": "Cheboygan County Probate Court",
+    "description": "Cheboygan County Courthouse, PO Box 70, 870 S. Main Street, Cheboygan, MI 49721",
+    "has_7yr_filter": false,
+    "code": "P16",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P16"
+  },
+  {
+    "county": "Chippewa County",
+    "court_name": "50th Circuit Court",
+    "description": "Chippewa County Courthouse, 319 Court Street, Sault Ste. Marie, MI 49783",
+    "has_7yr_filter": false,
+    "code": "C50",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C50"
+  },
+  {
+    "county": "Chippewa County",
+    "court_name": "Chippewa County Probate Court",
+    "description": "Chippewa County Courthouse, 319 Court Street, Sault Ste. Marie, MI 49783",
+    "has_7yr_filter": false,
+    "code": "P17",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P17"
+  },
+  {
+    "county": "Clare County",
+    "court_name": "55th Circuit Court - Clare",
+    "description": "Clare County Courthouse, 225 W. Main, Harrison, MI 48625",
+    "has_7yr_filter": false,
+    "code": "C55~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C55~1"
+  },
+  {
+    "county": "Clare County",
+    "court_name": "80th District Court - Clare",
+    "description": "Clare County Courthouse, 225 W. Main St., Harrison, MI 48625",
+    "has_7yr_filter": false,
+    "code": "D80~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D80~1"
+  },
+  {
+    "county": "Clinton County",
+    "court_name": "29th Circuit Court - Clinton",
+    "description": "100 E. State Street, Suite 4500, St. Johns, MI 48879",
+    "has_7yr_filter": false,
+    "code": "C29~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C29~1"
+  },
+  {
+    "county": "Clinton County",
+    "court_name": "65A District Court - Clinton County",
+    "description": "100 E State Street, Suite 3400 St. Johns, MI 48879",
+    "has_7yr_filter": false,
+    "code": "D65A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D65A"
+  },
+  {
+    "county": "Crawford County",
+    "court_name": "46th Circuit Court - Crawford",
+    "description": "Crawford County Courthouse, 200 W. Michigan Ave., Grayling, MI 49738",
+    "has_7yr_filter": false,
+    "code": "C46~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C46~1"
+  },
+  {
+    "county": "Crawford County",
+    "court_name": "87C District Court",
+    "description": "Crawford County Courthouse 200 W. Michigan Ave. Grayling, MI 49738",
+    "has_7yr_filter": true,
+    "code": "D87C",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D87C"
+  },
+  {
+    "county": "Crawford County",
+    "court_name": "Crawford County Probate Court",
+    "description": "Crawford County Courthouse, 200 W. Michigan Ave., Grayling, MI 49738",
+    "has_7yr_filter": false,
+    "code": "P20",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P20"
+  },
+  {
+    "county": "Dickinson County",
+    "court_name": "41st Circuit Court - Dickinson (C41~1)",
+    "description": "PO Box 609, Dickinson County Courthouse, 705 S. Stephenson St., Iron Mountain, MI 49801",
+    "has_7yr_filter": false,
+    "code": "C41~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C41~1"
+  },
+  {
+    "county": "Dickinson County",
+    "court_name": "95B District Court - Dickinson (D95B~1)",
+    "description": "PO Box 609, Dickinson County Courthouse, 705 S. Stephenson St., Iron Mountain, MI 49801",
+    "has_7yr_filter": false,
+    "code": "D95B~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D95B~1"
+  },
+  {
+    "county": "Eaton County",
+    "court_name": "56A District Court",
+    "description": "1045 Independence Blvd. Charlotte, MI 48813",
+    "has_7yr_filter": false,
+    "code": "D56A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D56A"
+  },
+  {
+    "county": "Eaton County",
+    "court_name": "56th Circuit Court; Eaton County Circuit Court",
+    "description": "1045 Independence Blvd. Charlotte, MI 48813",
+    "has_7yr_filter": false,
+    "code": "C56",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C56"
+  },
+  {
+    "county": "Eaton County",
+    "court_name": "Eaton County Probate Court",
+    "description": "1045 Independence Blvd. Charlotte, MI 48813",
+    "has_7yr_filter": false,
+    "code": "P23",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P23"
+  },
+  {
+    "county": "Emmet County",
+    "court_name": "57th Circuit Court",
+    "description": "Emmet County Building, 200 Division, Petoskey, MI 49770",
+    "has_7yr_filter": false,
+    "code": "C57",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C57"
+  },
+  {
+    "county": "Emmet County",
+    "court_name": "90th District Court - Emmet",
+    "description": "200 Division St. Petoskey, MI, 49770",
+    "has_7yr_filter": false,
+    "code": "D90~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D90~2"
+  },
+  {
+    "county": "Genesee County",
+    "court_name": "7th Circuit Court",
+    "description": "Genesee County Courthouse, 900 S. Saginaw St., Flint, MI 48502",
+    "has_7yr_filter": false,
+    "code": "C07",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C07"
+  },
+  {
+    "county": "Genesee County",
+    "court_name": "D67 District Court",
+    "description": "630 S. Saginaw Street, Flint, MI 48502",
+    "has_7yr_filter": false,
+    "code": "D67",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D67"
+  },
+  {
+    "county": "Genesee County",
+    "court_name": "Genesee County Probate Court",
+    "description": "Genesee County Courthouse, 900 S. Saginaw St., Flint, MI 48502",
+    "has_7yr_filter": false,
+    "code": "P25",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P25"
+  },
+  {
+    "county": "Gladwin County",
+    "court_name": "55th Circuit Court - Gladwin",
+    "description": "Gladwin County Courthouse, 401 W. Cedar Ave., Gladwin, MI 48624",
+    "has_7yr_filter": false,
+    "code": "C55~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C55~2"
+  },
+  {
+    "county": "Gladwin County",
+    "court_name": "80th District Court - Gladwin",
+    "description": "Gladwin County Building, 401 W. Cedar, Gladwin, MI 48624",
+    "has_7yr_filter": false,
+    "code": "D80~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D80~2"
+  },
+  {
+    "county": "Gogebic County",
+    "court_name": "C32~1 Gogebic",
+    "description": "Gogebic County Courthouse, 200 N. Moore St., Bessemer, MI 49911",
+    "has_7yr_filter": false,
+    "code": "C32~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C32~1"
+  },
+  {
+    "county": "Gogebic County",
+    "court_name": "D98 Gogebic District Court",
+    "description": "200 N. Moore St, Bessemer, MI, 49911",
+    "has_7yr_filter": false,
+    "code": "D98~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D98~1"
+  },
+  {
+    "county": "Grand Traverse County",
+    "court_name": "P28 Grand Traverse",
+    "description": "Grand Traverse County Probate Court - Traverse City",
+    "has_7yr_filter": false,
+    "code": "P28",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P28"
+  },
+  {
+    "county": "Gratiot County",
+    "court_name": "29th Circuit Court-Gratiot County",
+    "description": "214 E. Center Street, Ithaca, MI 48847",
+    "has_7yr_filter": false,
+    "code": "C29~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C29~2"
+  },
+  {
+    "county": "Gratiot County",
+    "court_name": "65B District Court-Gratiot County",
+    "description": "245 E. Newark St. Ithaca, MI 48847",
+    "has_7yr_filter": false,
+    "code": "D65B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D65B"
+  },
+  {
+    "county": "Hillsdale County",
+    "court_name": "1st Circuit Court",
+    "description": "Courthouse, 2nd Floor 29 N. Howell St. Room 6 Hillsdale, MI 49242",
+    "has_7yr_filter": false,
+    "code": "C01",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C01"
+  },
+  {
+    "county": "Hillsdale County",
+    "court_name": "2B District Court",
+    "description": "49 N. Howell St., Hillsdale, MI 49242",
+    "has_7yr_filter": false,
+    "code": "D02B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D02B"
+  },
+  {
+    "county": "Houghton County",
+    "court_name": "12th Circuit Court",
+    "description": "401 E Houghton Ave, Houghton, MI, 49931",
+    "has_7yr_filter": false,
+    "code": "C12~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C12~2"
+  },
+  {
+    "county": "Houghton County",
+    "court_name": "97th District Court",
+    "description": "Houghton County Courthouse, 401 E. Houghton Ave., Houghton, MI 49931",
+    "has_7yr_filter": false,
+    "code": "D97~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D97~2"
+  },
+  {
+    "county": "Ingham County",
+    "court_name": "30th Circuit Court",
+    "description": "313 W Kalamazoo St, Lansing, MI 48933",
+    "has_7yr_filter": true,
+    "code": "C30",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C30"
+  },
+  {
+    "county": "Ingham County",
+    "court_name": "54-A District Court",
+    "description": "124 W Michigan Ave # 54A, Lansing, MI 48933",
+    "has_7yr_filter": false,
+    "code": "D54A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D54A"
+  },
+  {
+    "county": "Ingham County",
+    "court_name": "54-B District Court",
+    "description": "101 Linden St, East Lansing, MI 48823",
+    "has_7yr_filter": false,
+    "code": "D54B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D54B"
+  },
+  {
+    "county": "Ingham County",
+    "court_name": "55th District Court",
+    "description": "700 Buhl St, Mason, MI 48854",
+    "has_7yr_filter": false,
+    "code": "D55",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D55"
+  },
+  {
+    "county": "Ingham County",
+    "court_name": "Ingham County Probate Court",
+    "description": "313 W Kalamazoo St, Lansing, MI 48933",
+    "has_7yr_filter": false,
+    "code": "P33",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P33"
+  },
+  {
+    "county": "Ionia County",
+    "court_name": "64-A District Court",
+    "description": "100 West Main Street, Ionia, MI 48846",
+    "has_7yr_filter": false,
+    "code": "D64A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D64A"
+  },
+  {
+    "county": "Ionia County",
+    "court_name": "8th Circuit Court, Ionia County",
+    "description": "100 West Main Street, Ionia, MI 48846",
+    "has_7yr_filter": false,
+    "code": "C08~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C08~1"
+  },
+  {
+    "county": "Ionia County",
+    "court_name": "Ionia County Probate Court",
+    "description": "100 West Main Street, Ionia, MI 48846",
+    "has_7yr_filter": false,
+    "code": "P34",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P34"
+  },
+  {
+    "county": "Iosco County",
+    "court_name": "23rd Circuit Court - Iosco",
+    "description": "Iosco County Building, PO Box 609, 422 Lake, Tawas City, MI 48764",
+    "has_7yr_filter": false,
+    "code": "C23~3",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C23~3"
+  },
+  {
+    "county": "Iosco County",
+    "court_name": "81-3 District Court",
+    "description": "422 W. Lake St. Tawas City, MI 48763",
+    "has_7yr_filter": true,
+    "code": "D81~3",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D81~3"
+  },
+  {
+    "county": "Iosco County",
+    "court_name": "Iosco County Probate Court",
+    "description": "Iosco County Building, PO Box 609, 422 Lake, Tawas City, MI 48764",
+    "has_7yr_filter": false,
+    "code": "P35",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P35"
+  },
+  {
+    "county": "Iron County",
+    "court_name": "41st Circuit Court-Iron County",
+    "description": "2 S. Sixth Street, Crystal Falls, MI 49920",
+    "has_7yr_filter": false,
+    "code": "C41~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C41~2"
+  },
+  {
+    "county": "Iron County",
+    "court_name": "95B District Court-Iron County",
+    "description": "2 S. Sixth Street, Crystal Falls, MI 49920",
+    "has_7yr_filter": false,
+    "code": "D95B~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D95B~2"
+  },
+  {
+    "county": "Iron County",
+    "court_name": "Iron County Probate Court",
+    "description": "2 S. Sixth Street, Crystal Falls, MI 49920",
+    "has_7yr_filter": false,
+    "code": "P36",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P36"
+  },
+  {
+    "county": "Isabella County",
+    "court_name": "21st Circuit Court",
+    "description": "300 N. Main St., Mt. Pleasant, MI 48858",
+    "has_7yr_filter": false,
+    "code": "C21",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C21"
+  },
+  {
+    "county": "Isabella County",
+    "court_name": "76th District Court",
+    "description": "300 N. Main St., Mt. Pleasant, MI 48858",
+    "has_7yr_filter": false,
+    "code": "D76",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D76"
+  },
+  {
+    "county": "Isabella County",
+    "court_name": "Isabella County Probate Court",
+    "description": "300 N. Main St., Mt. Pleasant, MI 48858",
+    "has_7yr_filter": false,
+    "code": "P37",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P37"
+  },
+  {
+    "county": "Jackson County",
+    "court_name": "12th District Court",
+    "description": "Jackson County Courthouse, 312 S. Jackson St., Jackson, MI 49201",
+    "has_7yr_filter": false,
+    "code": "D12",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D12"
+  },
+  {
+    "county": "Jackson County",
+    "court_name": "4th Circuit Court",
+    "description": "Jackson County Courthouse, 312 S. Jackson St., Jackson, MI 49201",
+    "has_7yr_filter": false,
+    "code": "C04",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C04"
+  },
+  {
+    "county": "Jackson County",
+    "court_name": "Jackson County Probate Court",
+    "description": "Jackson County Courthouse, 312 S. Jackson St., Jackson, MI 49201",
+    "has_7yr_filter": false,
+    "code": "P38",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P38"
+  },
+  {
+    "county": "Kalamazoo County",
+    "court_name": "8th District Court",
+    "description": "330 Eleanor Street Kalamazoo, MI 49007",
+    "has_7yr_filter": false,
+    "code": "D08",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D08"
+  },
+  {
+    "county": "Kalamazoo County",
+    "court_name": "Kalamazoo County Probate Court",
+    "description": "1536 Gull Road, Kalamazoo, MI 49048",
+    "has_7yr_filter": false,
+    "code": "P39",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P39"
+  },
+  {
+    "county": "Kalkaska County",
+    "court_name": "46th Circuit Court - Kalkaska",
+    "description": "Kalkaska County Courthouse, PO Box 10, 605 N. Birch, Kalkaska, MI 49646",
+    "has_7yr_filter": false,
+    "code": "C46~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C46~2"
+  },
+  {
+    "county": "Kalkaska County",
+    "court_name": "87B District Court",
+    "description": "605 N. Birch Street Kalkaska, MI 49646",
+    "has_7yr_filter": true,
+    "code": "D87B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D87B"
+  },
+  {
+    "county": "Kalkaska County",
+    "court_name": "Kalkaska County Probate Court",
+    "description": "Kalkaska County Gov't Center, 605 N. Birch St., Kalkaska, MI 49646",
+    "has_7yr_filter": false,
+    "code": "P40",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P40"
+  },
+  {
+    "county": "Kent County",
+    "court_name": "62A District Court",
+    "description": "2650 DeHoop Avenue SW, Wyoming, MI 49509",
+    "has_7yr_filter": false,
+    "code": "D62A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D62A"
+  },
+  {
+    "county": "Kent County",
+    "court_name": "D63 Kent",
+    "description": "Kent County except the cities of Grand Rapids, Walker, Grandville, Wyoming and Kentwood",
+    "has_7yr_filter": false,
+    "code": "D63",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D63"
+  },
+  {
+    "county": "Lake County",
+    "court_name": "Lake County Probate Court",
+    "description": "800 Tenth Street, Baldwin, MI 49304",
+    "has_7yr_filter": false,
+    "code": "P43",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P43"
+  },
+  {
+    "county": "Lapeer County",
+    "court_name": "40th Circuit Court",
+    "description": "Lapeer County Complex, 255 Clay Street, Lapeer, MI 48446",
+    "has_7yr_filter": false,
+    "code": "C40",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C40"
+  },
+  {
+    "county": "Lapeer County",
+    "court_name": "71-A District Court-Lapeer",
+    "description": "Lapeer County Complex Building, 255 Clay Street, Lapeer, MI 48446",
+    "has_7yr_filter": false,
+    "code": "D71A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D71A"
+  },
+  {
+    "county": "Lapeer County",
+    "court_name": "Lapeer County Probate Court",
+    "description": "Lapeer County Complex, 255 Clay Street, Lapeer, MI 48446",
+    "has_7yr_filter": false,
+    "code": "P44",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P44"
+  },
+  {
+    "county": "Leelanau County",
+    "court_name": "P45 Leelanau",
+    "description": "Leelanau County Probate Court - Suttons Bay",
+    "has_7yr_filter": false,
+    "code": "P45",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P45"
+  },
+  {
+    "county": "Lenawee County",
+    "court_name": "2A District Court",
+    "description": "Rex B Martin Judicial Bldg, 425 N. Main Street, Adrian, MI 49221",
+    "has_7yr_filter": false,
+    "code": "D02A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D02A"
+  },
+  {
+    "county": "Lenawee County",
+    "court_name": "Lenawee County Circuit Court",
+    "description": "425 North Main Street, Adrian, MI 49221",
+    "has_7yr_filter": false,
+    "code": "C39",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C39"
+  },
+  {
+    "county": "Livingston County",
+    "court_name": "44th Circuit Court",
+    "description": "204 S. Highlander Way, Suite 4, Howell, MI 48843",
+    "has_7yr_filter": false,
+    "code": "C44",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C44"
+  },
+  {
+    "county": "Livingston County",
+    "court_name": "53rd District Court",
+    "description": "Judicial Center 204 S. Highlander Way, Howell, MI 48843",
+    "has_7yr_filter": false,
+    "code": "D53",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D53"
+  },
+  {
+    "county": "Livingston County",
+    "court_name": "Livingston County Probate Court",
+    "description": "Serving all of Livingston County, 204 S. Highlander Way Howell, MI 48843",
+    "has_7yr_filter": false,
+    "code": "P47",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P47"
+  },
+  {
+    "county": "Luce County",
+    "court_name": "11th Circuit Court - Luce",
+    "description": "407 W. Harrie, Newberry, MI 49868",
+    "has_7yr_filter": false,
+    "code": "C11~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C11~2"
+  },
+  {
+    "county": "Luce County",
+    "court_name": "92-1 District Court - Luce",
+    "description": "407 W. Harrie St. Newberry, MI 49868",
+    "has_7yr_filter": false,
+    "code": "D92~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D92~1"
+  },
+  {
+    "county": "Mackinac County",
+    "court_name": "11th Circuit Court - Mackinac",
+    "description": "100 Marley St., St. Ignace, MI 49781",
+    "has_7yr_filter": false,
+    "code": "C11~3",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C11~3"
+  },
+  {
+    "county": "Mackinac County",
+    "court_name": "92-2 District Court - Mackinac",
+    "description": "100 S. Marley Street, Room 55 St. Ignace, MI 49781",
+    "has_7yr_filter": false,
+    "code": "D92~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D92~2"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "37th District Court",
+    "description": "2 Locations: Center Line - 7070 E. Ten Mile Rd., Center Line, MI 48015 & Warren - Edward A. Rea Judicial Bldg., 8300 Common Rd., Warren, MI 48093",
+    "has_7yr_filter": true,
+    "code": "D37",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D37"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "38th District Court – Eastpointe",
+    "description": "16101 E. 9 Mile Road, Eastpointe, MI 48021",
+    "has_7yr_filter": false,
+    "code": "D38",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D38"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "40th District Court – St. Clair Shores",
+    "description": "27701 Jefferson Avenue, St. Clair Shores, MI 48081",
+    "has_7yr_filter": false,
+    "code": "D40",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D40"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "41A District Court",
+    "description": "Serving City of Sterling Heights, 40111 Dodge Park Rd. Sterling Heights, MI 48313",
+    "has_7yr_filter": false,
+    "code": "D41A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D41A"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "41B District Court",
+    "description": "22380 Starks Drive, Clinton Township, MI 48036",
+    "has_7yr_filter": false,
+    "code": "D41B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D41B"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "42-1 District Court - Romeo",
+    "description": "14713 33 Mile Rd., PO Box 6, Romeo, MI 48065",
+    "has_7yr_filter": false,
+    "code": "D42-1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D42-1"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "42-2 District Court - New Baltimore",
+    "description": "35071 23 Mile Rd., New Baltimore, MI 48047",
+    "has_7yr_filter": true,
+    "code": "D42-2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D42-2"
+  },
+  {
+    "county": "Macomb County",
+    "court_name": "D41A District Court - Shelby Twp",
+    "description": "52420 VanDyke, Shelby Township, MI 48316",
+    "has_7yr_filter": false,
+    "code": "D41A~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D41A~2"
+  },
+  {
+    "county": "Manistee County",
+    "court_name": "19th Circuit Court - Manistee",
+    "description": "Manistee County, 415 3rd Street, Manistee, MI 49660",
+    "has_7yr_filter": false,
+    "code": "C19~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C19~2"
+  },
+  {
+    "county": "Manistee County",
+    "court_name": "85-2 District Court",
+    "description": "415 Third Street - Second Floor, Manistee, MI 49660",
+    "has_7yr_filter": false,
+    "code": "D85-2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D85-2"
+  },
+  {
+    "county": "Manistee County",
+    "court_name": "Manistee County Probate Court",
+    "description": "415 Third Street, Manistee, MI 49660",
+    "has_7yr_filter": false,
+    "code": "P51",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P51"
+  },
+  {
+    "county": "Marquette County",
+    "court_name": "25th Circuit Court",
+    "description": "234 W. Baraga, Marquette, MI 49855",
+    "has_7yr_filter": false,
+    "code": "C25",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C25"
+  },
+  {
+    "county": "Marquette County",
+    "court_name": "96th District Court",
+    "description": "234 W. Baraga, Marquette, MI 49855",
+    "has_7yr_filter": false,
+    "code": "D96",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D96"
+  },
+  {
+    "county": "Marquette County",
+    "court_name": "Marquette County Probate Court",
+    "description": "234 W. Baraga, Marquette, MI 49855",
+    "has_7yr_filter": false,
+    "code": "P52",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P52"
+  },
+  {
+    "county": "Mason County",
+    "court_name": "51st Circuit Court - Mason",
+    "description": "Mason County Courthouse, 304 E. Ludington Ave., Ludington, MI 49431",
+    "has_7yr_filter": false,
+    "code": "C51~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C51~2"
+  },
+  {
+    "county": "Mason County",
+    "court_name": "79th District Court",
+    "description": "304 East Ludington Avenue, Ludington, MI 49431",
+    "has_7yr_filter": false,
+    "code": "D79~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D79~2"
+  },
+  {
+    "county": "Mason County",
+    "court_name": "Mason County Probate Court",
+    "description": "304 East Ludington Avenue, Ludington, MI 49431-2121",
+    "has_7yr_filter": false,
+    "code": "P53",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P53"
+  },
+  {
+    "county": "Mecosta County",
+    "court_name": "49th Circuit Court - Mecosta",
+    "description": "400 Elm St., Big Rapids, MI, 49307",
+    "has_7yr_filter": false,
+    "code": "C49~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C49~1"
+  },
+  {
+    "county": "Menominee County",
+    "court_name": "41st Circuit Court - Menominee (C41~3)",
+    "description": "Courthouse, 839 10th Ave., Menominee, MI 49858",
+    "has_7yr_filter": false,
+    "code": "C41~3",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C41~3"
+  },
+  {
+    "county": "Menominee County",
+    "court_name": "95A District Court",
+    "description": "Courthouse, 839 10th Ave., Menominee, MI 49858",
+    "has_7yr_filter": false,
+    "code": "D95A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D95A"
+  },
+  {
+    "county": "Midland County",
+    "court_name": "42nd Circuit Court",
+    "description": "Midland County Courthouse, 301 W. Main Street, Midland, MI 48640",
+    "has_7yr_filter": false,
+    "code": "C42",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C42"
+  },
+  {
+    "county": "Midland County",
+    "court_name": "75th District Court",
+    "description": "Midland County Courthouse, 301 W. Main Street, Midland, MI 48640",
+    "has_7yr_filter": false,
+    "code": "D75",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D75"
+  },
+  {
+    "county": "Missaukee County",
+    "court_name": "28th Circuit Court, Missaukee County",
+    "description": "111 South Canal, PO Box 800 Lake City, MI 49651",
+    "has_7yr_filter": false,
+    "code": "C28~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C28~1"
+  },
+  {
+    "county": "Missaukee County",
+    "court_name": "84-1 District Court",
+    "description": "111 South Canal, PO Box 800 Lake City, MI 49651",
+    "has_7yr_filter": true,
+    "code": "D84~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D84~1"
+  },
+  {
+    "county": "Monroe County",
+    "court_name": "1st District Court",
+    "description": "Two Locations: Monroe - 106 E. First St., Monroe, MI 48161 and Erie - 12277 S. Telegraph Road, Erie, MI 48133",
+    "has_7yr_filter": false,
+    "code": "D01",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D01"
+  },
+  {
+    "county": "Monroe County",
+    "court_name": "38th Circuit Court",
+    "description": "Monroe County Courthouse, 106 E. First St., Monroe, MI 48161",
+    "has_7yr_filter": false,
+    "code": "C38",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C38"
+  },
+  {
+    "county": "Montcalm County",
+    "court_name": "64B District Court",
+    "description": "Montcalm County, 617 N. State, Stanton, MI 48888",
+    "has_7yr_filter": false,
+    "code": "D64B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D64B"
+  },
+  {
+    "county": "Montcalm County",
+    "court_name": "8th Circuit Court, Montcalm County",
+    "description": "629 N. State St. P.O. Box 296 Stanton, MI 48888",
+    "has_7yr_filter": false,
+    "code": "C08~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C08~2"
+  },
+  {
+    "county": "Montmorency County",
+    "court_name": "26th Circuit Court - Montmorency (C26~2)",
+    "description": "PO Box 789, Courthouse, 12265 M32, Atlanta, MI 49709",
+    "has_7yr_filter": false,
+    "code": "C26~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C26~2"
+  },
+  {
+    "county": "Montmorency County",
+    "court_name": "88-2 District Court, Montmorency County",
+    "description": "PO Box 789, Courthouse, Atlanta, MI 49709",
+    "has_7yr_filter": false,
+    "code": "D88~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D88~2"
+  },
+  {
+    "county": "Montmorency County",
+    "court_name": "Montmorency County Probate Court",
+    "description": "PO Box 789, Courthouse, M-32, Atlanta, MI 49709",
+    "has_7yr_filter": false,
+    "code": "P60",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P60"
+  },
+  {
+    "county": "Muskegon County",
+    "court_name": "14th Circuit Court",
+    "description": "Michael E. Kobza - Hall of Justice, 990 Terrace Muskegon, MI 49442",
+    "has_7yr_filter": false,
+    "code": "C14",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C14"
+  },
+  {
+    "county": "Muskegon County",
+    "court_name": "60th District Court",
+    "description": "Michael E. Kobza - Hall of Justice, 990 Terrace Muskegon, MI 49442",
+    "has_7yr_filter": false,
+    "code": "D60",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D60"
+  },
+  {
+    "county": "Muskegon County",
+    "court_name": "Muskegon County Probate Court",
+    "description": "990 Terrace Street 5th Floor Muskegon, MI 49442",
+    "has_7yr_filter": false,
+    "code": "P61",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P61"
+  },
+  {
+    "county": "Newaygo County",
+    "court_name": "27th Circuit Court - Newaygo",
+    "description": "Newaygo County Courthouse, PO BOX 885, 1092 Newell, White Cloud, MI 49349",
+    "has_7yr_filter": false,
+    "code": "C27~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C27~1"
+  },
+  {
+    "county": "Newaygo County",
+    "court_name": "Newaygo County Probate Court",
+    "description": "1092 Newell St. PO Box 885, White Cloud, MI, 49349",
+    "has_7yr_filter": false,
+    "code": "P62",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P62"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "43-2 District Court",
+    "description": "305 East Nine Mile Road Ferndale, Michigan 48220",
+    "has_7yr_filter": false,
+    "code": "D43~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D43~2"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "43rd District Court – Hazel Park",
+    "description": "43 E. Nine Mile Road, Hazel Park, MI 48030",
+    "has_7yr_filter": false,
+    "code": "D43~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D43~1"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "44th District Court - Royal Oak & Berkley",
+    "description": "400 E. 11 Mile Rd, Royal Oak, MI 48068",
+    "has_7yr_filter": false,
+    "code": "D44",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D44"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "45th District Court",
+    "description": "13600 Oak Park Blvd Oak Park, MI 48237",
+    "has_7yr_filter": false,
+    "code": "D45",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D45"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "46th District Court",
+    "description": "26000 Evergreen Rd, Southfield, MI 48076",
+    "has_7yr_filter": false,
+    "code": "D46",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D46"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "47th District Court",
+    "description": "31605 W. Eleven Mile Road, Farmington Hills, MI 48336",
+    "has_7yr_filter": false,
+    "code": "D47",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D47"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "48th District Court – Bloomfield Hills",
+    "description": "4280 Telegraph Rd., PO Box 3200, Bloomfield Hills, MI 48302",
+    "has_7yr_filter": false,
+    "code": "D48",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D48"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "50th District Court - Pontiac",
+    "description": "70 N. Saginaw St., Pontiac, MI 48342",
+    "has_7yr_filter": false,
+    "code": "D50",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D50"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "51st District Court",
+    "description": "5100 Civic Center Dr., Waterford, MI 48329",
+    "has_7yr_filter": false,
+    "code": "D51",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D51"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "D52-1 District Court",
+    "description": "Novi, Michigan",
+    "has_7yr_filter": false,
+    "code": "D52-1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D52-1"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "D52-2 District Court",
+    "description": "Clarkston, Michigan",
+    "has_7yr_filter": false,
+    "code": "D52-2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D52-2"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "D52-3 District Court",
+    "description": "Rochester Hills, Michigan",
+    "has_7yr_filter": false,
+    "code": "D52-3",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D52-3"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "D52-4 District Court",
+    "description": "Troy & Clawson, Michigan",
+    "has_7yr_filter": false,
+    "code": "D52-4",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D52-4"
+  },
+  {
+    "county": "Oakland County",
+    "court_name": "Oakland County Probate Court",
+    "description": "1200 N Telegraph Rd, Pontiac, MI 48341",
+    "has_7yr_filter": false,
+    "code": "P63",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P63"
+  },
+  {
+    "county": "Oceana County",
+    "court_name": "51st Circuit Court—Oceana County",
+    "description": "Oceana County Building, 100 State Street, Hart, MI 49420",
+    "has_7yr_filter": false,
+    "code": "C51~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C51~1"
+  },
+  {
+    "county": "Oceana County",
+    "court_name": "79th District Court",
+    "description": "100 S. State Street, Suite L-15, P.O. Box 471, Hart, MI 49420",
+    "has_7yr_filter": false,
+    "code": "D79~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D79~1"
+  },
+  {
+    "county": "Oceana County",
+    "court_name": "Oceana County Probate Court",
+    "description": "Oceana County Building, 100 S. State Street, Hart, MI 49420",
+    "has_7yr_filter": false,
+    "code": "P64",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P64"
+  },
+  {
+    "county": "Ogemaw County",
+    "court_name": "34th Circuit Court - Ogemaw",
+    "description": "Ogemaw County Building, 806 W. Houghton Ave., West Branch, MI 48661",
+    "has_7yr_filter": false,
+    "code": "C34~1",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C34~1"
+  },
+  {
+    "county": "Ogemaw County",
+    "court_name": "Ogemaw County Probate Court",
+    "description": "Ogemaw County Building, 806 W. Houghton Ave., West Branch, MI 48661",
+    "has_7yr_filter": false,
+    "code": "P65",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P65"
+  },
+  {
+    "county": "Ontonagon County",
+    "court_name": "98th District Court – Ontonagon",
+    "description": "725 Greenland Road, Ontonagon, MI 49953",
+    "has_7yr_filter": false,
+    "code": "D98~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D98~2"
+  },
+  {
+    "county": "Osceola County",
+    "court_name": "49th Circuit Court - Osceola",
+    "description": "301 W. Upton Ave., Reed City, MI, 49677",
+    "has_7yr_filter": false,
+    "code": "C49~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C49~2"
+  },
+  {
+    "county": "Oscoda County",
+    "court_name": "23rd Circuit Court - Oscoda",
+    "description": "Oscoda County Courthouse, 311 Morenci, Mio, MI 48647",
+    "has_7yr_filter": false,
+    "code": "C23~4",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C23~4"
+  },
+  {
+    "county": "Oscoda County",
+    "court_name": "D81-4 District Court",
+    "description": "105 S. Court St, Mio, MI 48647",
+    "has_7yr_filter": true,
+    "code": "D81~4",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D81~4"
+  },
+  {
+    "county": "Otsego County",
+    "court_name": "46th Circuit Court - Otsego",
+    "description": "Otsego County Circuit Court, 225 W. Main St., Gaylord, MI 49735",
+    "has_7yr_filter": false,
+    "code": "C46~3",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C46~3"
+  },
+  {
+    "county": "Ottawa County",
+    "court_name": "20th Circuit Court",
+    "description": "Ottawa County Building, 414 N. Washington Ave., Grand Haven, MI 49417",
+    "has_7yr_filter": false,
+    "code": "C20",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C20"
+  },
+  {
+    "county": "Ottawa County",
+    "court_name": "58th District Court - Holland, Grand Haven & Hudsonville",
+    "description": "Holland, Grand Haven & Hudsonville",
+    "has_7yr_filter": false,
+    "code": "D58",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D58"
+  },
+  {
+    "county": "Presque Isle County",
+    "court_name": "53rd Circuit Court - Presque Isle",
+    "description": "Presque Isle County, 151 E. Huron, PO Box 110, Rogers City, MI 49779",
+    "has_7yr_filter": false,
+    "code": "C53~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C53~2"
+  },
+  {
+    "county": "Presque Isle County",
+    "court_name": "Presque Isle County Probate Court",
+    "description": "Presque Isle County Courthouse, PO Box 110, 151 E. Huron Ave., Rogers City, MI 49779",
+    "has_7yr_filter": false,
+    "code": "P71",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P71"
+  },
+  {
+    "county": "Roscommon County",
+    "court_name": "34th Circuit Court - Roscommon",
+    "description": "Roscommon County Courthouse, 500 Lake Street, Roscommon, MI 48653",
+    "has_7yr_filter": false,
+    "code": "C34~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C34~2"
+  },
+  {
+    "county": "Roscommon County",
+    "court_name": "Roscommon County Probate Court",
+    "description": "Roscommon County Building, 500 Lake St., Roscommon, MI 48653",
+    "has_7yr_filter": false,
+    "code": "P72",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P72"
+  },
+  {
+    "county": "Sanilac County",
+    "court_name": "24th Circuit Court",
+    "description": "60 W Sanilac 3rd Floor, Sandusky, MI 48471",
+    "has_7yr_filter": false,
+    "code": "C24",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C24"
+  },
+  {
+    "county": "Sanilac County",
+    "court_name": "73A District Court",
+    "description": "60 West Sanilac Avenue, Sandusky, MI 48471",
+    "has_7yr_filter": false,
+    "code": "D73A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D73A"
+  },
+  {
+    "county": "Sanilac County",
+    "court_name": "Sanilac County Probate Court",
+    "description": "60 West Sanilac Avenue, Sandusky, MI 48471",
+    "has_7yr_filter": false,
+    "code": "P76",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P76"
+  },
+  {
+    "county": "Schoolcraft County",
+    "court_name": "11th Circuit Court - Schoolcraft",
+    "description": "County Courthouse, Room 103, 300 Walnut St., Manistique, MI 49854",
+    "has_7yr_filter": false,
+    "code": "C11~4",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C11~4"
+  },
+  {
+    "county": "Schoolcraft County",
+    "court_name": "93rd Judicial District Court - Schoolcraft",
+    "description": "300 Walnut St., Room 135 Manistique, MI 49854",
+    "has_7yr_filter": false,
+    "code": "D93~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D93~2"
+  },
+  {
+    "county": "Schoolcraft County",
+    "court_name": "Schoolcraft County Probate Court",
+    "description": "300 Walnut Street, Room 129, Manistique, Michigan 49854",
+    "has_7yr_filter": false,
+    "code": "PD5~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/PD5~2"
+  },
+  {
+    "county": "Shiawassee County",
+    "court_name": "35th Circuit Court",
+    "description": "208 N Shiawassee St, Corunna, MI 48817",
+    "has_7yr_filter": false,
+    "code": "C35",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C35"
+  },
+  {
+    "county": "Shiawassee County",
+    "court_name": "66th District Court",
+    "description": "110 E. Mack St., Corunna, MI 48817",
+    "has_7yr_filter": false,
+    "code": "D66",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D66"
+  },
+  {
+    "county": "Shiawassee County",
+    "court_name": "Shiawassee County Probate Court",
+    "description": "110 East Mack Street, Corunna, MI 48817",
+    "has_7yr_filter": false,
+    "code": "P78",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P78"
+  },
+  {
+    "county": "St. Clair County",
+    "court_name": "72nd District Court",
+    "description": "2 Locations: 201 McMorran Blvd., Port Huron, MI 48060 and 2088 South Parker, Marine City, MI 48039",
+    "has_7yr_filter": false,
+    "code": "D72",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D72"
+  },
+  {
+    "county": "St. Clair County",
+    "court_name": "St. Clair County Probate Court",
+    "description": "St. Clair County Building, 201 McMorran Blvd., Port Huron, MI 48060",
+    "has_7yr_filter": false,
+    "code": "P74",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P74"
+  },
+  {
+    "county": "St. Joseph County",
+    "court_name": "45th Circuit Court",
+    "description": "St. Joseph County Courthouse, PO Box 189, 125 W. Main, Centreville, MI 49032",
+    "has_7yr_filter": false,
+    "code": "C45",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C45"
+  },
+  {
+    "county": "Tuscola County",
+    "court_name": "54th Circuit Court",
+    "description": "Tuscola County Courthouse, 440 N. State St., Caro, MI 48723",
+    "has_7yr_filter": false,
+    "code": "C54",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C54"
+  },
+  {
+    "county": "Tuscola County",
+    "court_name": "71B District Court",
+    "description": "Tuscola County Courthouse, 440 N. State St., Caro, MI 48723",
+    "has_7yr_filter": false,
+    "code": "D71B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D71B"
+  },
+  {
+    "county": "Tuscola County",
+    "court_name": "Tuscola County Probate Court",
+    "description": "Tuscola County Courthouse, 440 N. State St., Caro, MI 48723",
+    "has_7yr_filter": false,
+    "code": "P79",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P79"
+  },
+  {
+    "county": "Van Buren County",
+    "court_name": "36th Circuit Court",
+    "description": "Courthouse 2nd Floor 212 E. Paw Paw Street Paw Paw , MI 49079",
+    "has_7yr_filter": false,
+    "code": "C36",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C36"
+  },
+  {
+    "county": "Van Buren County",
+    "court_name": "7th District Court",
+    "description": "2 Locations: Courthouse 212 E. Paw Paw Street – Suite 130 Paw Paw, MI 49079 and South Haven Courthouse - 1007 E. Wells Street South Haven, MI 49090",
+    "has_7yr_filter": false,
+    "code": "D07",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D07"
+  },
+  {
+    "county": "Van Buren County",
+    "court_name": "Van Buren County Probate Court",
+    "description": "Courthouse Annex, 2nd Floor 212 E. Paw Paw Street Suite 220 Paw Paw , MI 49079",
+    "has_7yr_filter": false,
+    "code": "P80",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/P80"
+  },
+  {
+    "county": "Washtenaw County",
+    "court_name": "14A District Court",
+    "description": "Serves all of Washtenaw County except City of Ann Arbor and Ypsilanti Twp, PO Box 8645, 4133 Washtenaw Road, Ann Arbor, MI 48107",
+    "has_7yr_filter": false,
+    "code": "D14A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D14A"
+  },
+  {
+    "county": "Washtenaw County",
+    "court_name": "14B District Court",
+    "description": "7200 S. Huron River Drive, Ypsilanti, MI 48197",
+    "has_7yr_filter": false,
+    "code": "D14B",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D14B"
+  },
+  {
+    "county": "Washtenaw County",
+    "court_name": "15th District Court",
+    "description": "301 E Huron St, Ann Arbor, MI 48104",
+    "has_7yr_filter": false,
+    "code": "D15",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D15"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "16th District Court",
+    "description": "Serving City of Livonia, 32765 Five Mile Rd. Livonia, MI 48154",
+    "has_7yr_filter": false,
+    "code": "D16",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D16"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "17th District Court",
+    "description": "15111 Beech-Daly Road, Redford, MI 48239",
+    "has_7yr_filter": false,
+    "code": "D17",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D17"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "18th District Court",
+    "description": "36675 Ford Rd., Westland, MI 48185",
+    "has_7yr_filter": false,
+    "code": "D18",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D18"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "19th District Court",
+    "description": "16077 Michigan Avenue, Dearborn, MI",
+    "has_7yr_filter": false,
+    "code": "D19",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D19"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "21st District Court - Garden City",
+    "description": "6000 Middlebelt Rd. Garden City, MI 48135",
+    "has_7yr_filter": false,
+    "code": "D21",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D21"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "22nd District Court – Inkster",
+    "description": "26279 Michigan Ave., Inkster, MI 48141",
+    "has_7yr_filter": false,
+    "code": "D22",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D22"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "23rd District Court – Taylor",
+    "description": "23365 Goddard, Taylor, MI 48180",
+    "has_7yr_filter": false,
+    "code": "D23",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D23"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "24th District Court - Allen Park & Melvindale",
+    "description": "6515 Roosevelt Rd., Allen Park, MI 48101",
+    "has_7yr_filter": false,
+    "code": "D24",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D24"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "25th District Court",
+    "description": "Cities of Ecorse, Lincoln Park, and River Rouge: 1475 Cleophus, Lincoln Park, MI 48146",
+    "has_7yr_filter": false,
+    "code": "D25",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D25"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "27th District Court - Cities of Wyandotte and Riverview",
+    "description": "2015 Biddle Ave., Wyandotte, MI 48192",
+    "has_7yr_filter": false,
+    "code": "D27",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D27"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "28th District Court – Southgate",
+    "description": "14720 Reaume Parkway, Southgate, MI 48195",
+    "has_7yr_filter": false,
+    "code": "D28",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D28"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "29th District Court - Wayne",
+    "description": "34808 Sims Avenue Wayne, MI 48184",
+    "has_7yr_filter": false,
+    "code": "D29",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D29"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "30th District Court – Highland Park",
+    "description": "12050 Woodward Ave., Highland Park, MI 48203",
+    "has_7yr_filter": false,
+    "code": "D30",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D30"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "31st District Court - Hamtramck",
+    "description": "3401 Evaline Ave., Hamtramck, MI 48212",
+    "has_7yr_filter": false,
+    "code": "D31",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D31"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "32A District Court",
+    "description": "Harper Woods",
+    "has_7yr_filter": false,
+    "code": "D32A",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D32A"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "33rd District Court",
+    "description": "1900 Van Horn, Woodhaven, MI 48183",
+    "has_7yr_filter": false,
+    "code": "D33",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D33"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "34th District Court – Romulus",
+    "description": "11129 Wayne Road, Romulus, Michigan, 48174",
+    "has_7yr_filter": false,
+    "code": "D34",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D34"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "35th District Court-Plymouth, Northville, Canton",
+    "description": "660 Plymouth Road, Plymouth, MI 48170",
+    "has_7yr_filter": false,
+    "code": "D35",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D35"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "36th District Court",
+    "description": "421 Madison Street, Detroit MI 48226",
+    "has_7yr_filter": false,
+    "code": "D36",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D36"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "Grosse Pointe City Municipal Court",
+    "description": "17147 Maumee Ave, Grosse Pointe, MI 48230",
+    "has_7yr_filter": false,
+    "code": "MGP",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/MGP"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "Grosse Pointe Park Municipal Park",
+    "description": "15115 East Jefferson Avenue, Grosse Pointe Park, MI 48230",
+    "has_7yr_filter": false,
+    "code": "MGPP",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/MGPP"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "Grosse Pointe Woods Municipal Court",
+    "description": "20025 Mack Plaza Drive, Grosse Pte. Woods, MI 48236",
+    "has_7yr_filter": false,
+    "code": "MGPW",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/MGPW"
+  },
+  {
+    "county": "Wayne County",
+    "court_name": "Grosse Pte. Farms Municipal Court and Grosse Pte. Shores Division",
+    "description": "2 Locations: City of Grosse Pointe Farms - 90 Kerby Rd., Grosse Pte. Farms, MI 48236 and City of Grosse Pointe Shores Division - 795 Lakeshore Dr., Grosse Pte. Shores, MI 48236",
+    "has_7yr_filter": false,
+    "code": "MGPF",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/MGPF"
+  },
+  {
+    "county": "Wexford County",
+    "court_name": "28th Circuit Court, Wexford County",
+    "description": "437 E. Division St., Cadillac, MI 49601",
+    "has_7yr_filter": false,
+    "code": "C28~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/C28~2"
+  },
+  {
+    "county": "Wexford County",
+    "court_name": "84-2 District Court",
+    "description": "437 E. Division St., Cadillac, MI 49601",
+    "has_7yr_filter": true,
+    "code": "D84~2",
+    "url": "https://micourt.courts.michigan.gov/case-search/court/D84~2"
+  }
+]
