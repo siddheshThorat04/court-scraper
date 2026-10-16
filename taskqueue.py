@@ -42,6 +42,7 @@ C_PAGES = K("census:pages")               # sum of page counts (incl. page 1) ov
 C_SEEN = K("census:seen")                 # set of counted pairs -> each pair is counted once, even if retried
 P_LOADS = K("progress:loads_done")        # tasks finished (census loads + page loads)
 P_PAGES = K("progress:pages_done")        # data pages saved
+CAPTCHA_COUNT = K("captcha:count")        # hash: worker/machine id -> number of CAPTCHAs it hit
 P_SAMPLES = K("progress:samples")         # zset of "ts:loads_done" samples -> recent speed for the ETA
 
 _ENQUEUE_LUA = """

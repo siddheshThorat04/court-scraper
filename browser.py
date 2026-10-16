@@ -5,7 +5,7 @@ import re
 import time
 
 import config
-from errors import Retry
+from errors import RateLimited, Retry
 
 log = logging.getLogger("browser")
 
@@ -82,6 +82,7 @@ class Browser:
         self.driver = None
         self.page = self._ctx = self._cm = self._pw = None   # Playwright objects (camoufox / xdriver)
         self.loads = 0
+        self.api_error = None       # (status, url) of the last failed search-API call on the current page
 
     # ---------- lifecycle ----------
     def _pw_mode(self):
@@ -100,6 +101,26 @@ class Browser:
                 self.page.wait_for_load_state("domcontentloaded")
                 return self.page.evaluate(expr)
         return self.driver.execute_script(script)
+
+    def _watch_api(self):
+        """Remember failed calls to the site's search API. When it answers 429 the page still renders
+        'Total Record Count: 0' next to an error pop-up, which would otherwise look like an empty result."""
+        def on_response(resp):
+            try:
+                if "/api/casesearch/" in resp.url and resp.status >= 400:
+                    self.api_error = (resp.status, resp.url.split("?")[0][-80:])
+            except Exception:  # noqa: BLE001
+                pass
+        self.page.on("response", on_response)
+
+    def raise_if_api_error(self):
+        """Call after a page is 'ready': a failed API call means the numbers on screen cannot be trusted."""
+        err, self.api_error = self.api_error, None
+        if err:
+            status, url = err
+            if status == 429:
+                raise RateLimited(f"HTTP 429 from the site's search API ({url})")
+            raise Retry(f"site search API returned HTTP {status} ({url})")
 
     def goto(self, url):
         if self._pw_mode():
@@ -153,6 +174,7 @@ class Browser:
         self._ctx = self._cm.__enter__()          # persistent_context=True -> a BrowserContext
         self._ctx.set_default_timeout(config.PAGE_TIMEOUT * 1000)
         self.page = self._ctx.pages[0] if self._ctx.pages else self._ctx.new_page()
+        self._watch_api()
         self.driver = self.page  # truthy marker used by ensure()/close()
         self.loads = 0
 
@@ -186,6 +208,7 @@ class Browser:
             raise
         self._ctx.set_default_timeout(config.PAGE_TIMEOUT * 1000)
         self.page = self._ctx.pages[0] if self._ctx.pages else self._ctx.new_page()
+        self._watch_api()
         self.driver = self.page  # truthy marker used by ensure()/close()
         self.loads = 0
 
@@ -271,8 +294,12 @@ class Browser:
         self.ensure()
         self._single_tab()
         self.loads += 1
+        self.api_error = None
         self.goto(url)
-        return self.wait_ready(expect_name, config.PAGE_TIMEOUT)
+        snap = self.wait_ready(expect_name, config.PAGE_TIMEOUT)
+        if not snap.get("captcha"):
+            self.raise_if_api_error()
+        return snap
 
     def wait_ready(self, expect_name, timeout, soft=False):
         """Wait on the CURRENT page for results / empty state / CAPTCHA. soft=True returns None on timeout

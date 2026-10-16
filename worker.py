@@ -11,6 +11,7 @@ Exit codes: 0 = clean stop, 1 = crash (run_workers.sh restarts it).
 from email.mime import base
 import json
 import logging
+from datetime import datetime
 import math
 import random
 import signal
@@ -24,7 +25,7 @@ import config
 import taskqueue as tq
 from browser import Browser, is_empty_state, parse_count
 from db import DB
-from errors import Retry, Stop
+from errors import RateLimited, Retry, Stop
 from notifier import Notifier
 
 log = logging.getLogger("worker")
@@ -151,9 +152,18 @@ class Worker:
         except Exception:  # noqa: BLE001 - not Windows / no sound device
             print("\a", end="", flush=True)
 
+    def count_captcha(self):
+        """Per-machine CAPTCHA counter: the running total lives in Redis and is mirrored to the 'captchas' sheet."""
+        try:
+            n = int(self.r.hincrby(tq.CAPTCHA_COUNT, self.id, 1))
+            self.db.record_captcha(self.id, n, datetime.now().astimezone().isoformat(timespec="seconds"))
+        except Exception as e:  # noqa: BLE001 - counting must never get in the way of solving
+            log.warning("captcha counter: %s", e)
+
     def handle_captcha(self, name, page):
         """A CAPTCHA needs a human. 'local': only THIS worker waits (the operator is at this machine);
         'global': every worker pauses (single VM / remote-desktop setups)."""
+        self.count_captcha()
         local = config.CAPTCHA_MODE == "local"
         if local:
             self.local_alert(f"A CAPTCHA appeared ({name}, page {page}). Solve it in the Chrome window - "
@@ -205,8 +215,10 @@ class Worker:
                 self.handle_captcha(task["name"], page)
                 # The solved CAPTCHA usually lets the CURRENT page continue. Re-opening the URL throws that
                 # away and often triggers a brand-new CAPTCHA, so first wait for results on this same page.
+                self.browser.api_error = None          # errors seen while the CAPTCHA was up do not count
                 snap = self.browser.wait_ready(task["name"], 20, soft=True)
                 if snap is not None and not snap.get("captcha"):
+                    self.browser.raise_if_api_error()
                     return snap
                 continue
             return snap
@@ -214,9 +226,10 @@ class Worker:
     # ------------------------------------------------------------------ task handlers
     @staticmethod
     def _rows(task, page, cases):
+        scraped_at = datetime.now().astimezone().isoformat(timespec="seconds")   # e.g. 2026-10-15T21:00:36+05:30
         return [
             (task["court"], c["case_id"], c["party_name"], c["party_type"], c["case_title"], c["filed_date"],
-             c["case_status"], c["balance"], c["court"], c["year_of_birth"], task["name"], page)
+             c["case_status"], c["balance"], c["court"], c["year_of_birth"], task["name"], page, scraped_at)
             for c in cases
         ]
 
@@ -273,7 +286,16 @@ class Worker:
         self.consec_fail += 1
         tid = tq.task_id(task)
         log.warning("task %s failed (attempt %d): %s", tid, attempts, err)
-        if attempts >= config.MAX_ATTEMPTS:
+        if isinstance(err, RateLimited):
+            # The site is throttling us - that is not the task's fault, so it keeps its attempt, and this worker
+            # backs off (60 s, 120 s, 240 s ... up to 10 min) instead of hammering the site.
+            self.r.hincrby(tq.ATTEMPTS, tid, -1)
+            self.rl_streak = getattr(self, "rl_streak", 0) + 1
+            wait = min(getattr(config, "RATE_LIMIT_MAX_WAIT", 10),
+                       getattr(config, "RATE_LIMIT_WAIT", 5) * 2 ** (self.rl_streak - 1))
+            self.n.warn(f"HTTP 429 on {self.id} - backing off {wait}s ({self.rl_streak} in a row). Task {tid} will be retried.")
+            self.sleep(wait)
+        elif attempts >= config.MAX_ATTEMPTS:
             self.dead_letter(stream, mid, task, err, attempts)
         else:
             self.n.warn(f"{tid} attempt {attempts}/{config.MAX_ATTEMPTS}: {str(err)[:120]}")
@@ -396,6 +418,7 @@ class Worker:
             else:
                 self.do_page(stream, mid, task, attempts)
             self.consec_fail = 0
+            self.rl_streak = 0
         except Stop:
             raise
         except Exception as e:  # noqa: BLE001 - includes Retry

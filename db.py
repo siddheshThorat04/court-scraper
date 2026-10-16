@@ -94,6 +94,10 @@ class DB:
                 r.sadd(done_key, *marks)
         return len(new_cases)
 
+    def record_captcha(self, machine, count, at):
+        """Set this machine's CAPTCHA total on the 'captchas' sheet (an absolute value, so a retry is harmless)."""
+        self._call("captcha", machine=machine, count=int(count), at=at)
+
     def record_failed(self, task_key, payload, error, attempts):
         self._call("failed", task_key=task_key[:400], payload=json.dumps(payload)[:2000],
                    error=str(error)[:500], attempts=attempts)

@@ -67,6 +67,7 @@ def main():
         raise SystemExit("Search settings (dates/filters) differ from what this queue was seeded with - mixing "
                          "them gives inconsistent data. Use --new-config only when starting a new job.")
     r.set(fpkey, fp)
+    print(f"Building {len(courts) * len(names):,} pairs ({len(names):,} names x {len(courts)} courts)...", flush=True)
     pairs = [(c, n) for c in courts for n in names]
     if not args.no_shuffle:
         random.Random(42).shuffle(pairs)
@@ -81,11 +82,18 @@ def main():
     except Exception:  # noqa: BLE001
         pass
 
-    queued = 0
-    for i in range(0, len(pairs), 500):
-        queued += tq.enqueue_pairs(r, pairs[i:i + 500])
+    queued, t0, step = 0, time.time(), 500
+    for i in range(0, len(pairs), step):
+        q = tq.enqueue_pairs(r, pairs[i:i + step])
+        queued += q
+        if q:
+            r.incrby(tq.C_PAIRS_TOTAL, q)      # per chunk, so progress.py is right even if you press Ctrl+C
+        done = min(i + step, len(pairs))
+        if (i // step) % 20 == 0 or done == len(pairs):
+            rate = done / max(0.001, time.time() - t0)
+            print(f"  queued {done:,} / {len(pairs):,} ({done / len(pairs):.0%})  {rate:,.0f} pairs/s  "
+                  f"~{(len(pairs) - done) / rate / 60:.1f} min left", flush=True)
     if queued:
-        r.incrby(tq.C_PAIRS_TOTAL, queued)
         r.delete(tq.COMPLETE)  # allow a new "all done" notification
     r.set(tq.START_TS, time.time(), nx=True)
     print(f"names: {len(seen)} | courts: {len(courts)} | pairs: {len(pairs):,} | already done in sheet: {skipped_done} | "

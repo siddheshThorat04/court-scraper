@@ -76,6 +76,12 @@ def show(r):
     else:
         print("SPEED    waiting for enough data...")
 
+    caps = {k: int(v) for k, v in r.hgetall(tq.CAPTCHA_COUNT).items()}
+    if caps:
+        tot = sum(caps.values())
+        per = f"{loads_done / tot:,.0f} page loads per CAPTCHA" if loads_done else ""
+        print(f"CAPTCHA  {tot:,} total ({per}) | " + ", ".join(f"{m}: {n}" for m, n in sorted(caps.items())))
+
     d = tq.depth(r)
     pause = tq.get_pause(r)
     print(f"QUEUE    count tasks: {sum(d['name']):,} waiting/in-flight | page tasks: {sum(d['page']):,} | "
