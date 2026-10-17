@@ -82,6 +82,12 @@ def show(r):
         per = f"{loads_done / tot:,.0f} page loads per CAPTCHA" if loads_done else ""
         print(f"CAPTCHA  {tot:,} total ({per}) | " + ", ".join(f"{m}: {n}" for m, n in sorted(caps.items())))
 
+    rl = {k: int(v) for k, v in r.hgetall(tq.RELOAD_STATS).items()}
+    if rl:
+        ok, bad = rl.get("recovered", 0), rl.get("failed", 0)
+        print(f"RELOADS  {ok + bad:,} errors got one reload: {ok:,} recovered, {bad:,} still failed and were re-queued"
+              f" ({ok / (ok + bad):.0%} saved by the reload)")
+
     d = tq.depth(r)
     pause = tq.get_pause(r)
     print(f"QUEUE    count tasks: {sum(d['name']):,} waiting/in-flight | page tasks: {sum(d['page']):,} | "

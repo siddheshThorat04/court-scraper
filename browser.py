@@ -9,7 +9,7 @@ from errors import RateLimited, Retry
 
 log = logging.getLogger("browser")
 
-SNAPSHOT_JS = """
+SNAPSHOT_JS = r"""
 const q = s => document.querySelector(s);
 const vis = e => e && e.offsetWidth > 0 && e.offsetHeight > 0;
 // A *challenge* iframe: visible, big enough to be a puzzle, not the always-present reCAPTCHA badge,
@@ -30,6 +30,13 @@ const capFrames = Array.from(document.querySelectorAll(
 )).filter(isChallenge);
 const c = q('#total-count-id');
 const inp = q("input[formcontrolname='lastName']");
+// The site shows a red "Error! Http failure response for ...: 429 OK" box (and a pop-up) while the count still reads 0.
+// Match specific patterns only: the permanent disclaimer text also contains the plain word "error".
+const full = document.body ? document.body.innerText : '';
+const httpErr = full.match(/http failure response[^\n]*/i);
+const bangErr = /(^|\n)\s*error!/i.test(full);
+const danger = Array.from(document.querySelectorAll('.alert-danger')).filter(vis).map(e => e.innerText.trim()).filter(Boolean)[0] || '';
+const errtext = httpErr ? httpErr[0].slice(0, 200) : (bangErr ? 'Error! box shown on the page' : danger.slice(0, 200));
 return {
   captcha: capFrames.length > 0,
   capinfo: capFrames.map(f => (f.src || '').slice(0, 80)),
@@ -37,7 +44,8 @@ return {
   count: c ? c.innerText : null,
   items: document.querySelectorAll('app-case-search-results-item').length,
   nameval: inp ? inp.value : null,
-  body: (document.body ? document.body.innerText : '').slice(0, 3000).toLowerCase()
+  errtext: errtext,
+  body: full.slice(0, 3000).toLowerCase()
 };
 """
 
@@ -107,20 +115,23 @@ class Browser:
         'Total Record Count: 0' next to an error pop-up, which would otherwise look like an empty result."""
         def on_response(resp):
             try:
-                if "/api/casesearch/" in resp.url and resp.status >= 400:
+                if "/api/casesearch/v1/cases/search" in resp.url and resp.status >= 400:
                     self.api_error = (resp.status, resp.url.split("?")[0][-80:])
             except Exception:  # noqa: BLE001
                 pass
         self.page.on("response", on_response)
 
-    def raise_if_api_error(self):
-        """Call after a page is 'ready': a failed API call means the numbers on screen cannot be trusted."""
-        err, self.api_error = self.api_error, None
-        if err:
-            status, url = err
-            if status == 429:
-                raise RateLimited(f"HTTP 429 from the site's search API ({url})")
-            raise Retry(f"site search API returned HTTP {status} ({url})")
+    def check(self, snap):
+        """Call on a page that looks 'ready'. If the site showed its error box (or the search call failed), the numbers on
+        screen - including 'Total Record Count: 0' - are NOT a real answer: raise so the task is retried."""
+        api, self.api_error = self.api_error, None
+        text = (snap or {}).get("errtext") or ""
+        if text or api:
+            is429 = "429" in text or bool(api and api[0] == 429)
+            detail = text or f"HTTP {api[0]} from the search API"
+            if is429:
+                raise RateLimited(f"HTTP 429 - {detail}")
+            raise Retry(f"site reported an error - {detail}")
 
     def goto(self, url):
         if self._pw_mode():
@@ -298,7 +309,7 @@ class Browser:
         self.goto(url)
         snap = self.wait_ready(expect_name, config.PAGE_TIMEOUT)
         if not snap.get("captcha"):
-            self.raise_if_api_error()
+            self.check(snap)
         return snap
 
     def wait_ready(self, expect_name, timeout, soft=False):

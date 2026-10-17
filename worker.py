@@ -13,6 +13,7 @@ import json
 import logging
 from datetime import datetime
 import math
+import os
 import random
 import signal
 import sys
@@ -207,7 +208,7 @@ class Worker:
             tq.clear_pause(self.r, owner=self.id)
 
     def load_page(self, task, page):
-        url = config.build_url(task["court"], task["name"], page)
+        url = config.build_url(task["court"], task["name"], page) + getattr(self, "url_suffix", "")
         while True:
             snap = self.browser.load(url, task["name"])
             if snap.get("captcha"):
@@ -218,7 +219,7 @@ class Worker:
                 self.browser.api_error = None          # errors seen while the CAPTCHA was up do not count
                 snap = self.browser.wait_ready(task["name"], 20, soft=True)
                 if snap is not None and not snap.get("captcha"):
-                    self.browser.raise_if_api_error()
+                    self.browser.check(snap)
                     return snap
                 continue
             return snap
@@ -291,8 +292,8 @@ class Worker:
             # backs off (60 s, 120 s, 240 s ... up to 10 min) instead of hammering the site.
             self.r.hincrby(tq.ATTEMPTS, tid, -1)
             self.rl_streak = getattr(self, "rl_streak", 0) + 1
-            wait = min(getattr(config, "RATE_LIMIT_MAX_WAIT", 10),
-                       getattr(config, "RATE_LIMIT_WAIT", 5) * 2 ** (self.rl_streak - 1))
+            wait = min(getattr(config, "RATE_LIMIT_MAX_WAIT", 600),
+                       getattr(config, "RATE_LIMIT_WAIT", 60) * 2 ** (self.rl_streak - 1))
             self.n.warn(f"HTTP 429 on {self.id} - backing off {wait}s ({self.rl_streak} in a row). Task {tid} will be retried.")
             self.sleep(wait)
         elif attempts >= config.MAX_ATTEMPTS:
@@ -413,16 +414,60 @@ class Worker:
             return
         try:
             self.rate_gate()
-            if task["stage"] == "name":
-                self.do_name(stream, mid, task, attempts)
-            else:
-                self.do_page(stream, mid, task, attempts)
+            mark = (len(self.buf.cases), len(self.buf.pages), len(self.buf.summaries))
+            try:
+                self._run_task(stream, mid, task, attempts)
+            except Stop:
+                raise
+            except Exception as first:  # noqa: BLE001 - HTTP 429, timeout, error box, incomplete page ...
+                if os.getenv("RELOAD_ONCE", "1") == "0":
+                    raise
+                # Do NOT hand the task back yet: reload the SAME page once first. Only if that also fails is it re-queued.
+                self._rollback(mark)
+                wait = float(os.getenv("RELOAD_WAIT_429", "10")) if isinstance(first, RateLimited) \
+                    else float(os.getenv("RELOAD_WAIT", "2"))
+                log.warning("task %s: %s - reloading the same page once (after %.0fs)", tid, str(first)[:120], wait)
+                self.sleep(wait)
+                if self.should_stop():
+                    raise first
+                # the reload of a 429 record uses a slightly different URL (default "&dummy=dummy"; empty = off)
+                self.url_suffix = os.getenv("RELOAD_URL_SUFFIX", "&dummy=dummy") if isinstance(first, RateLimited) else ""
+                try:
+                    self._run_task(stream, mid, task, attempts)
+                except Stop:
+                    raise
+                except Exception:  # noqa: BLE001
+                    self._rollback(mark)
+                    self._count_reload("failed")
+                    raise                                   # -> on_failure: back-off / re-queue as before
+                finally:
+                    self.url_suffix = ""
+                self._count_reload("recovered")
+                log.info("task %s: recovered by one reload", tid)
             self.consec_fail = 0
             self.rl_streak = 0
         except Stop:
             raise
         except Exception as e:  # noqa: BLE001 - includes Retry
             self.on_failure(stream, mid, task, attempts, e)
+
+    def _run_task(self, stream, mid, task, attempts):
+        if task["stage"] == "name":
+            self.do_name(stream, mid, task, attempts)
+        else:
+            self.do_page(stream, mid, task, attempts)
+
+    def _rollback(self, mark):
+        """Forget anything a half-finished attempt put into the in-memory batch, so the reload cannot duplicate rows."""
+        del self.buf.cases[mark[0]:]
+        del self.buf.pages[mark[1]:]
+        del self.buf.summaries[mark[2]:]
+
+    def _count_reload(self, outcome):
+        try:
+            self.r.hincrby(tq.RELOAD_STATS, outcome, 1)
+        except Exception:  # noqa: BLE001
+            pass
 
     def _shutdown(self):
         try:
